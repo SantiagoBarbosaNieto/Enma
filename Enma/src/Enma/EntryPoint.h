@@ -14,7 +14,6 @@ int main(int argc, char** argv)
 	
 
 
-	printf("Enma Engine started\n");
 	auto app = Enma::CreateApplication();
 	app->Run();
 	delete app;
