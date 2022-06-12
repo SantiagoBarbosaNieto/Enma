@@ -12,8 +12,10 @@ workspace "Enma"
     --Include directories relative to root folder (solution directory)
     IncludeDir = {}
     IncludeDir["GLFW"] = "Enma/vendor/GLFW/include"
+    IncludeDir["Glad"] = "Enma/vendor/Glad/include"
 
 include "Enma/vendor/GLFW"
+include "Enma/vendor/Glad"
 
 project "Sandbox"
         location "Sandbox"
@@ -89,12 +91,14 @@ project "Enma"
     {
         "%{wks.location}/%{prj.name}/src",
         "%{prj.name}/vendor/spdlog/include",
-        "%{IncludeDir.GLFW}"
+        "%{IncludeDir.GLFW}",
+        "%{IncludeDir.Glad}"
     }
 
     links
     {
         "GLFW",
+        "Glad",
         "opengl32.lib"
     }
 
@@ -106,7 +110,8 @@ project "Enma"
         defines
         {
             "EM_PLATFORM_WINDOWS",
-            "EM_BUILD_DLL"
+            "EM_BUILD_DLL",
+            "GLFW_INCLUDE_NONE"
         }
 
     filter "configurations:Debug"
