@@ -37,7 +37,7 @@ namespace Enma {
 		int m_RepeatCount;
 	};
 
-	class ENMA_API KeyReleasedEvent : KeyEvent
+	class ENMA_API KeyReleasedEvent : public KeyEvent
 	{
 	public: 
 		KeyReleasedEvent(int keycode)
