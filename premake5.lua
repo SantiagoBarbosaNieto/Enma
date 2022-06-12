@@ -7,8 +7,14 @@ workspace "Enma"
         "Release",
         "Dist"
     }
-outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
+    outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+
+    --Include directories relative to root folder (solution directory)
+    IncludeDir = {}
+    IncludeDir["GLFW"] = "Enma/vendor/GLFW/include"
+
+    include "Enma/vendor/GLFW"
 
 project "Sandbox"
         location "Sandbox"
@@ -71,6 +77,9 @@ project "Enma"
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
+    pchheader "empch.h"
+    pchsource "Enma/src/empch.cpp"
+
     files
     {
         "%{prj.name}/src/**.h",
@@ -80,7 +89,14 @@ project "Enma"
     includedirs
     {
         "%{wks.location}/%{prj.name}/src",
-        "%{prj.name}/vendor/spdlog/include"
+        "%{prj.name}/vendor/spdlog/include",
+        "%{IncludeDir.GLFW}"
+    }
+
+    links
+    {
+        "GLFW",
+        "opengl32.lib"
     }
 
     filter "system:windows"
@@ -95,7 +111,7 @@ project "Enma"
         }
 
     filter "configurations:Debug"
-        defines "EM_DEBUG"
+        defines { "EM_DEBUG", "EM_ENABLE_ASSERTS"}
         symbols "On"
 
     filter "configurations:Release"

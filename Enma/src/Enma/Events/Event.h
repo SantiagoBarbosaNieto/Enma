@@ -1,9 +1,8 @@
 #pragma once
+#include "empch.h"
 
 #include "Enma/Core.h"
 
-#include <string>
-#include <functional>
 
 namespace Enma {
 	//Events in enma are currently blocking. There is no buffer for evetns so 

@@ -1,3 +1,6 @@
 [submodule "Enma/vendor/spdlog"]
 	path = Enma/vendor/spdlog
 	url = https://github.com/gabime/spdlog
+[submodule "Enma/vendor/GLFW"]
+	path = Enma/vendor/GLFW
+	url = https://github.com/TheCherno/glfw
