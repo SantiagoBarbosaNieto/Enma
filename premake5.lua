@@ -1,5 +1,6 @@
 workspace "Enma"
     architecture "x64"
+    startproject "Sandbox"
     configurations
     {
         "Debug",
@@ -7,7 +8,6 @@ workspace "Enma"
         "Dist"
     }
     outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
-
 
     --Include directories relative to root folder (solution directory)
     IncludeDir = {}
