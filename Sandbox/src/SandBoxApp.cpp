@@ -24,6 +24,7 @@ class Sandbox : public Enma::Application
 public:
 	Sandbox() {
 		PushLayer(new ExampleLayer());
+		PushOverlay(new Enma::ImGuiLayer());
 	}
 	~Sandbox() {
 

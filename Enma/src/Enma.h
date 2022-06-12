@@ -5,6 +5,7 @@
 #include "Enma/Application.h"
 #include "Enma/Log.h"
 #include "Enma/Layer.h"
+#include "Enma/ImGui/ImGuiLayer.h"
 
 // ---- Entry Point -----
 #include "Enma/EntryPoint.h"

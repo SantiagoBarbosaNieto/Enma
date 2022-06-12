@@ -13,9 +13,11 @@ workspace "Enma"
     IncludeDir = {}
     IncludeDir["GLFW"] = "Enma/vendor/GLFW/include"
     IncludeDir["Glad"] = "Enma/vendor/Glad/include"
+    IncludeDir["ImGui"] = "Enma/vendor/imgui/"
 
 include "Enma/vendor/GLFW"
 include "Enma/vendor/Glad"
+include "Enma/vendor/imgui"
 
 project "Sandbox"
         location "Sandbox"
@@ -92,14 +94,16 @@ project "Enma"
         "%{wks.location}/%{prj.name}/src",
         "%{prj.name}/vendor/spdlog/include",
         "%{IncludeDir.GLFW}",
-        "%{IncludeDir.Glad}"
+        "%{IncludeDir.Glad}",
+        "%{IncludeDir.ImGui}"
     }
 
     links
     {
         "GLFW",
         "Glad",
-        "opengl32.lib"
+        "opengl32.lib",
+        "ImGui"
     }
 
     filter "system:windows"
