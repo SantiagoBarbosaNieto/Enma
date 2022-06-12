@@ -1,6 +1,5 @@
 workspace "Enma"
     architecture "x64"
-
     configurations
     {
         "Debug",
@@ -14,7 +13,7 @@ workspace "Enma"
     IncludeDir = {}
     IncludeDir["GLFW"] = "Enma/vendor/GLFW/include"
 
-    include "Enma/vendor/GLFW"
+include "Enma/vendor/GLFW"
 
 project "Sandbox"
         location "Sandbox"
