@@ -3,6 +3,7 @@
 
 #include "Enma/Events/ApplicationEvent.h"
 #include "Enma/Log.h"
+#include "Enma/Input.h"
 
 #include <Glad/glad.h>
 
@@ -59,6 +60,10 @@ namespace Enma {
 			glClear(GL_COLOR_BUFFER_BIT);
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
+
+			auto [x, y] = Input::GetMousePos();
+			EM_CORE_TRACE("{0},{1}", x, y);
+
 			m_Window->OnUpdate();
 		}
 	}
