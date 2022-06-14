@@ -15,9 +15,12 @@ workspace "Enma"
     IncludeDir["Glad"] = "Enma/vendor/Glad/include"
     IncludeDir["ImGui"] = "Enma/vendor/imgui/"
 
-include "Enma/vendor/GLFW"
-include "Enma/vendor/Glad"
-include "Enma/vendor/imgui"
+group "Dependencies"
+    include "Enma/vendor/GLFW"
+    include "Enma/vendor/Glad"
+    include "Enma/vendor/imgui"
+
+group ""
 
 project "Sandbox"
         location "Sandbox"
@@ -113,10 +116,12 @@ project "Enma"
             "EM_BUILD_DLL",
             "GLFW_INCLUDE_NONE"
         }
+
         postbuildcommands
         {
-            ("{COPY} ../bin/" .. outputdir .. "/Enma/Enma.dll" .. " ../bin/" .. outputdir .. "/Sandbox")
+            "{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox/\""
         }
+
 
     filter "configurations:Debug"
         defines { "EM_DEBUG", "EM_ENABLE_ASSERTS"}
