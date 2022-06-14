@@ -32,6 +32,13 @@ namespace Enma
 	public:
 		WindowCloseEvent() {}
 
+		std::string ToString() const override
+		{
+			std::stringstream ss;
+			ss << "WindowCloseEvent";
+			return ss.str();
+		}
+
 		EVENT_CLASS_TYPE(WindowClose)
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	};
@@ -40,6 +47,13 @@ namespace Enma
 	{
 	public: 
 		AppTickEvent() {}
+
+		std::string ToString() const override
+		{
+			std::stringstream ss;
+			ss << "AppTickEvent";
+			return ss.str();
+		}
 
 		EVENT_CLASS_TYPE(AppTick)
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)
@@ -50,8 +64,15 @@ namespace Enma
 	public:
 		AppUpdateEvent() {}
 
+
+		std::string ToString() const override
+		{
+			std::stringstream ss;
+			ss << "AppUpdateEvent";
+			return ss.str();
+		}
 		EVENT_CLASS_TYPE(AppUpdate)
-			EVENT_CLASS_CATEGORY(EventCategoryApplication)
+		EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	};
 
 	class ENMA_API AppRenderEvent : public Event
@@ -59,8 +80,16 @@ namespace Enma
 	public:
 		AppRenderEvent() {}
 
+
+		std::string ToString() const override
+		{
+			std::stringstream ss;
+			ss << "AppRenderEvent";
+			return ss.str();
+		}
+
 		EVENT_CLASS_TYPE(AppRender)
-			EVENT_CLASS_CATEGORY(EventCategoryApplication)
+		EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	};
 
 

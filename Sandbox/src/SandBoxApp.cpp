@@ -10,7 +10,7 @@ public:
 
 	void OnUpdate() override
 	{
-		EM_INFO("ExampleLayer::Update");
+		//EM_INFO("ExampleLayer::Update");
 	}
 
 	void OnEvent(Enma::Event& event) override

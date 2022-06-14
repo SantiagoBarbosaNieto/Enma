@@ -53,10 +53,6 @@ project "Sandbox"
         {
             "EM_PLATFORM_WINDOWS"
         }
-        postbuildcommands
-        {
-            ("{COPY} ../bin/" .. outputdir .. "/Enma/Enma.dll" .. " ../bin/" .. outputdir .. "/%{prj.name}")
-        }
 
 
     filter "configurations:Debug"
@@ -116,6 +112,10 @@ project "Enma"
             "EM_PLATFORM_WINDOWS",
             "EM_BUILD_DLL",
             "GLFW_INCLUDE_NONE"
+        }
+        postbuildcommands
+        {
+            ("{COPY} ../bin/" .. outputdir .. "/Enma/Enma.dll" .. " ../bin/" .. outputdir .. "/Sandbox")
         }
 
     filter "configurations:Debug"
