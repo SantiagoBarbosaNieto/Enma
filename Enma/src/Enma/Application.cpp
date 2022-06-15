@@ -41,8 +41,6 @@ namespace Enma {
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(EM_BIND_EVENT_FN(Application::OnWindowClose));
 
-		EM_CORE_TRACE("{0}",e);
-
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin(); )
 		{
 			(*--it)->OnEvent(e);
@@ -60,9 +58,6 @@ namespace Enma {
 			glClear(GL_COLOR_BUFFER_BIT);
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
-
-			auto [x, y] = Input::GetMousePos();
-			EM_CORE_TRACE("{0},{1}", x, y);
 
 			m_Window->OnUpdate();
 		}

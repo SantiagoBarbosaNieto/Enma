@@ -27,6 +27,12 @@ namespace Enma
 		return state == GLFW_PRESS;
 	}
 
+	bool WindowsInput::IsGamepadButtonPressedImpl(int button)
+	{
+		EM_CORE_WARN("Gamepad input still not implemented!");
+		return false;
+	}
+
 	std::pair<float, float> WindowsInput::GetMousePosImpl()
 	{
 		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());

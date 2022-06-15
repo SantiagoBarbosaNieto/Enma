@@ -11,12 +11,13 @@ public:
 	void OnUpdate() override
 	{
 		//EM_INFO("ExampleLayer::Update");
+		if (Enma::Input::IsKeyPressed(Enma::Key::Space))
+			EM_INFO("Spacebar pressed! :D");
 	}
 
 	void OnEvent(Enma::Event& event) override
 	{
-		EM_TRACE("ExampleLayer::Event: {0}", event);
-	}
+	} 
 };
 
 class Sandbox : public Enma::Application 
