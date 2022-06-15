@@ -2,6 +2,7 @@
 
 #include "Enma/Core.h"
 
+
 namespace Enma
 {
 	class ENMA_API Input

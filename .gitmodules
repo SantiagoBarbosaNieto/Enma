@@ -8,3 +8,6 @@
 [submodule "Enma/vendor/imgui"]
 	path = Enma/vendor/imgui
 	url = https://github.com/TheCherno/imgui
+[submodule "Enma/vendor/glm"]
+	path = Enma/vendor/glm
+	url = https://github.com/g-truc/glm

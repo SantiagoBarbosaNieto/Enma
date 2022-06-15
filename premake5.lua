@@ -14,6 +14,7 @@ workspace "Enma"
     IncludeDir["GLFW"] = "Enma/vendor/GLFW/include"
     IncludeDir["Glad"] = "Enma/vendor/Glad/include"
     IncludeDir["ImGui"] = "Enma/vendor/imgui/"
+    IncludeDir["glm"] = "Enma/vendor/glm/"
 
 group "Dependencies"
     include "Enma/vendor/GLFW"
@@ -39,7 +40,8 @@ project "Sandbox"
     includedirs
     {
         "Enma/vendor/spdlog/include",
-        "Enma/src"
+        "Enma/src",
+        "%{IncludeDir.glm}"
     }
 
     links
@@ -85,7 +87,9 @@ project "Enma"
     files
     {
         "%{prj.name}/src/**.h",
-        "%{prj.name}/src/**.cpp"
+        "%{prj.name}/src/**.cpp",
+        "%{prj.name}/vendor/glm/glm/*.hpp",
+        "%{prj.name}/vendor/glm/glm/*.inl"
     }
 
     includedirs
@@ -94,7 +98,8 @@ project "Enma"
         "%{prj.name}/vendor/spdlog/include",
         "%{IncludeDir.GLFW}",
         "%{IncludeDir.Glad}",
-        "%{IncludeDir.ImGui}"
+        "%{IncludeDir.ImGui}",
+        "%{IncludeDir.glm}"
     }
 
     links
