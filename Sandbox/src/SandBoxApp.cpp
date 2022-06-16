@@ -18,9 +18,6 @@ public:
 
 	void OnImGuiRender() override
 	{
-		ImGui::Begin("Test ImGui from APP");
-		ImGui::Text("Hello from APP");
-		ImGui::End();
 	}
 
 	void OnEvent(Enma::Event& event) override
