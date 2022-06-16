@@ -1,6 +1,7 @@
 # Binaries
-**/bin/
+bin/*
 bin-int/
+!vendor/bin/premake/*
 
 # Enma files
 *.log
