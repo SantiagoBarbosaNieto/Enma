@@ -1,7 +1,7 @@
 project "Glad"
 	kind "StaticLib"
 	language "C"
-	staticruntime "Off"
+	staticruntime "on"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -26,6 +26,11 @@ project "Glad"
 	filter "system:windows"
 		systemversion "latest"
 
+		defines 
+		{ 
+			"_CRT_SECURE_NO_WARNINGS"
+		}
+
 
 	filter "configurations:Debug"
 		runtime "Debug"
@@ -38,4 +43,4 @@ project "Glad"
 	filter "configurations:Dist"
 		runtime "Release"
 		optimize "on"
-        symbols "off"
+		symbols "off"

@@ -33,8 +33,8 @@ namespace Enma
 		struct WindowData
 		{
 			std::string Title;
-			unsigned int Width, Height;
-			bool VSync;
+			unsigned int Width, Height = 0;
+			bool VSync = false;
 
 			EventCallbackFn EventCallback;
 		};

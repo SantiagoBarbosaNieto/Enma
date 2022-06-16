@@ -1,4 +1,5 @@
 #include <Enma.h>
+#include "imgui/imgui.h"
 
 class ExampleLayer : public Enma::Layer
 {
@@ -12,7 +13,14 @@ public:
 	{
 		//EM_INFO("ExampleLayer::Update");
 		if (Enma::Input::IsKeyPressed(Enma::Key::Space))
-			EM_INFO("Spacebar pressed! :D");
+			EM_TRACE("Spacebar pressed! :D");
+	}
+
+	void OnImGuiRender() override
+	{
+		ImGui::Begin("Test ImGui from APP");
+		ImGui::Text("Hello from APP");
+		ImGui::End();
 	}
 
 	void OnEvent(Enma::Event& event) override
@@ -25,7 +33,6 @@ class Sandbox : public Enma::Application
 public:
 	Sandbox() {
 		PushLayer(new ExampleLayer());
-		PushOverlay(new Enma::ImGuiLayer());
 	}
 	~Sandbox() {
 

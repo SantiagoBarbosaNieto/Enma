@@ -23,60 +23,13 @@ group "Dependencies"
 
 group ""
 
-project "Sandbox"
-        location "Sandbox"
-        kind "ConsoleApp"
-        language "C++"
-        
-    targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-    objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
-
-    files
-    {
-        "%{prj.name}/src/**.h",
-        "%{prj.name}/src/**.cpp"
-    }
-
-    includedirs
-    {
-        "Enma/vendor/spdlog/include",
-        "Enma/src",
-        "%{IncludeDir.glm}"
-    }
-
-    links
-    {
-        "Enma"
-    }
-
-    filter "system:windows"
-        cppdialect "C++17"
-        staticruntime "Off"
-        systemversion "latest"
-
-        defines
-        {
-            "EM_PLATFORM_WINDOWS"
-        }
-
-
-    filter "configurations:Debug"
-        defines "EM_DEBUG"
-        symbols "On"
-
-    filter "configurations:Release"
-        defines "EM_RELEASE"
-        symbols "On"
-        
-    filter "configurations:Dist"
-        defines "EM_DIST"
-        symbols "On"
-
 project "Enma"
     location "Enma"
-    kind "SharedLib"
+    kind "Staticlib"
     language "C++"
-
+    cppdialect "C++17"
+    staticruntime "on"
+    
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -111,31 +64,77 @@ project "Enma"
     }
 
     filter "system:windows"
-        cppdialect "C++17"
-        staticruntime "Off"
         systemversion "latest"
 
         defines
         {
             "EM_PLATFORM_WINDOWS",
             "EM_BUILD_DLL",
-            "GLFW_INCLUDE_NONE"
-        }
-
-        postbuildcommands
-        {
-            "{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox/\""
+            "GLFW_INCLUDE_NONE",
+            "_CRT_SECURE_NO_WARNINGS"
         }
 
 
     filter "configurations:Debug"
         defines { "EM_DEBUG", "EM_ENABLE_ASSERTS"}
-        symbols "On"
+        symbols "on"
 
     filter "configurations:Release"
         defines "EM_RELEASE"
-        symbols "On"
+        symbols "on"
         
     filter "configurations:Dist"
         defines "EM_DIST"
-        symbols "On"
+        symbols "on"
+
+project "Sandbox"
+        location "Sandbox"
+        kind "ConsoleApp"
+        language "C++"
+        cppdialect "C++17"
+        staticruntime "on"
+        
+    targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+    objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
+    files
+    {
+        "%{prj.name}/src/**.h",
+        "%{prj.name}/src/**.cpp"
+    }
+
+    includedirs
+    {
+        "Enma/vendor/spdlog/include",
+        "Enma/src",
+        "Enma/vendor",
+        "%{IncludeDir.glm}"
+    }
+
+    links
+    {
+        "Enma"
+    }
+
+    filter "system:windows"
+        systemversion "latest"
+
+        defines
+        {
+            "EM_PLATFORM_WINDOWS"
+        }
+
+
+    filter "configurations:Debug"
+        defines "EM_DEBUG"
+        symbols "on"
+
+    filter "configurations:Release"
+        defines "EM_RELEASE"
+        symbols "on"
+        
+    filter "configurations:Dist"
+        defines "EM_DIST"
+        symbols "on"
+
+

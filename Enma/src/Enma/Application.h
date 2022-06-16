@@ -5,6 +5,8 @@
 #include "Events/Event.h"
 #include "Enma/Events/ApplicationEvent.h"
 
+#include "Enma/ImGui/ImGuiLayer.h"
+
 
 namespace Enma {
 
@@ -28,6 +30,7 @@ namespace Enma {
 		bool OnWindowClose(WindowCloseEvent& e);
 
 		std::unique_ptr<Window> m_Window;
+		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running;
 		LayerStack m_LayerStack;
 	private:
