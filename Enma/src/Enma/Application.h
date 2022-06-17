@@ -5,6 +5,7 @@
 #include "Events/Event.h"
 #include "Enma/Events/ApplicationEvent.h"
 #include "Enma/Renderer/Shader.h"
+#include "Enma/Renderer/Buffer.h"
 
 #include "Enma/ImGui/ImGuiLayer.h"
 
@@ -35,7 +36,10 @@ namespace Enma {
 		bool m_Running;
 		LayerStack m_LayerStack;
 
-		unsigned int m_VertexArray, m_VertexBuffer, m_IndexBuffer;
+		unsigned int m_VertexArray;
+		std::unique_ptr<VertexBuffer> m_VertexBuffer;
+		std::unique_ptr<IndexBuffer> m_IndexBuffer;
+
 		std::unique_ptr<Shader> m_Shader;
 	private:
 		static Application* s_Instance;
