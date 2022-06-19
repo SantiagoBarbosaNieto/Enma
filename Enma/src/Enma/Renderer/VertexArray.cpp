@@ -12,8 +12,8 @@ namespace Enma
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::None:		EM_CORE_ASSERT(false, "RendererAPI::None is not supported yet!"); return nullptr;
-		case RendererAPI::OpenGL:	return new OpenGLVertexArray();
+		case RendererAPI::API::None:		EM_CORE_ASSERT(false, "RendererAPI::None is not supported yet!"); return nullptr;
+		case RendererAPI::API::OpenGL:	return new OpenGLVertexArray();
 		}
 
 		EM_CORE_ASSERT(false, "Unknown RendererAPI!");

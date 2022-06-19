@@ -1,7 +1,7 @@
 #include "empch.h"
 #include "OpenGLBuffer.h"
 
-#include <Glad/glad.h>
+#include <glad/glad.h>
 
 namespace Enma
 {

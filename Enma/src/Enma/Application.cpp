@@ -1,13 +1,11 @@
 #include "empch.h"
 #include "Application.h"
 
-#include "Enma/Events/ApplicationEvent.h"
 #include "Enma/Log.h"
-#include "Enma/Input.h"
-#include "Enma/Renderer/Shader.h"
-#include "Enma/Renderer/Buffer.h"
 
-#include <Glad/glad.h>
+#include "Enma/Renderer/Renderer.h"
+
+#include "Enma/Input.h"
 
 namespace Enma {
 
@@ -191,16 +189,19 @@ namespace Enma {
 
 		while (m_Running)
 		{
-			glClearColor(0.1f, 0.1f, 0.1f, 0.5f);
-			glClear(GL_COLOR_BUFFER_BIT);
+
+			RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 0.5f });
+			RenderCommand::Clear();
+
+			Renderer::BeginScene();
 			
 			m_BlueShader->Bind();
-			m_SquareVertexArray->Bind();
-			glDrawElements(GL_TRIANGLES, m_SquareVertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+			Renderer::Submit(m_SquareVertexArray);
 
 			m_Shader->Bind();
-			m_VertexArray->Bind();
-			glDrawElements(GL_TRIANGLES, m_VertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+			Renderer::Submit(m_VertexArray);
+
+			Renderer::EndScene();
 
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();

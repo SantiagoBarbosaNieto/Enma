@@ -11,10 +11,10 @@ namespace Enma
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::None:		
+		case RendererAPI::API::None:
 			EM_CORE_ASSERT(false, "RendererAPI::None is not supported yet!"); 
 			return nullptr;
-		case RendererAPI::OpenGL:	
+		case RendererAPI::API::OpenGL:
 			return new OpenGLVertexBuffer(vertices, size);
 		}
 
@@ -28,10 +28,10 @@ namespace Enma
 
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::None:
+		case RendererAPI::API::None:
 			EM_CORE_ASSERT(false, "RendererAPI::None is not supported yet!");
 			return nullptr;
-		case RendererAPI::OpenGL:
+		case RendererAPI::API::OpenGL:
 			return new OpenGLIndexBuffer(indices, count);
 		}
 
