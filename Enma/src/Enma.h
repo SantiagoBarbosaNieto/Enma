@@ -13,6 +13,16 @@
 #include "Enma/Layer.h"
 #include "Enma/ImGui/ImGuiLayer.h"
 
+// ---- Renderer --------
+#include "Enma/Renderer/Renderer.h"
+#include "Enma/Renderer/RenderCommand.h"
+
+#include "Enma/Renderer/Buffer.h"
+#include "Enma/Renderer/Shader.h"
+#include "Enma/Renderer/VertexArray.h"
+
+#include "Enma/Renderer/OrthographicCamera.h"
+
 // ---- Entry Point -----
 #include "Enma/EntryPoint.h"
 // ---- Entry Point -----
