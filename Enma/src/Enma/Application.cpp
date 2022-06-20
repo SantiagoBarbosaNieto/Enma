@@ -6,6 +6,8 @@
 #include "Enma/Renderer/Renderer.h"
 
 #include "Enma/Input.h"
+#include "Enma/Keycodes.h"
+
 
 namespace Enma {
 
@@ -14,7 +16,9 @@ namespace Enma {
 
 
 
-	Application::Application() {
+	Application::Application() 
+		:m_Camera(-1.6, 1.6f, -0.9f, 0.9f)
+	{
 		EM_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
 		m_Window = std::unique_ptr<Window>(Window::Create());
@@ -28,9 +32,9 @@ namespace Enma {
 
 
 		float vertices[3 * 7] = {
-			-0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
-			 0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
-			 0.0f,  0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f
+			-0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 0.8f, 1.0f,
+			 0.5f, -0.5f, 0.0f, 0.2f, 0.3f, 0.8f, 1.0f,
+			 0.0f,  0.5f, 0.0f, 0.8f, 0.8f, 1.2f, 1.0f
 		};
 
 
@@ -89,14 +93,16 @@ namespace Enma {
 			layout(location = 0) in vec3 a_Position;
 			layout(location = 1) in vec4 a_Color;
 
+			uniform mat4 u_ProjectionView;
+
 			out vec4 v_Color;
 			out vec3 v_Position;
 			
 			void main()
 			{
-				v_Position = a_Position;
+				v_Position =  a_Position;
 				v_Color = a_Color;
-				gl_Position = vec4(a_Position,1.0);
+				gl_Position = u_ProjectionView * vec4(a_Position,1.0);
 				
 			}
 		)";
@@ -123,14 +129,14 @@ namespace Enma {
 			#version 330 core
 			
 			layout(location = 0) in vec3 a_Position;
+			uniform mat4 u_ProjectionView;
 
-			out vec4 v_Color;
 			out vec3 v_Position;
 			
 			void main()
 			{
-				v_Position = a_Position;
-				gl_Position = vec4(a_Position,1.0);
+				v_Position =  a_Position;
+				gl_Position = u_ProjectionView * vec4(a_Position,1.0);
 				
 			}
 		)";
@@ -156,10 +162,6 @@ namespace Enma {
 
 	}
 
-	Application::~Application() {
-
-	}
-
 	void Application::PushLayer(Layer* layer)
 	{
 		m_LayerStack.PushLayer(layer);
@@ -174,6 +176,7 @@ namespace Enma {
 	{
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(EM_BIND_EVENT_FN(Application::OnWindowClose));
+		dispatcher.Dispatch<KeyPressedEvent>(EM_BIND_EVENT_FN(Application::OnKeyPressed));
 
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin(); )
 		{
@@ -193,13 +196,11 @@ namespace Enma {
 			RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 0.5f });
 			RenderCommand::Clear();
 
-			Renderer::BeginScene();
-			
-			m_BlueShader->Bind();
-			Renderer::Submit(m_SquareVertexArray);
 
-			m_Shader->Bind();
-			Renderer::Submit(m_VertexArray);
+			Renderer::BeginScene(m_Camera);
+			
+			Renderer::Submit(m_BlueShader, m_SquareVertexArray);
+			Renderer::Submit(m_Shader, m_VertexArray);
 
 			Renderer::EndScene();
 
@@ -216,6 +217,30 @@ namespace Enma {
 	bool Application::OnWindowClose(WindowCloseEvent& e)
 	{
 		m_Running = false;
+		return true;
+	}
+
+	bool Application::OnKeyPressed(KeyPressedEvent& e)
+	{
+		glm::vec3 pos = m_Camera.GetPosition();
+
+		switch (e.GetKeyCode())
+		{
+		case Enma::Key::Up:
+			pos = pos + glm::vec3( { 0.0f, 0.1f, 0.0f });
+			break;
+		case Enma::Key::Down:
+			pos = pos + glm::vec3({ 0.0f, -0.1f, 0.0f });
+			break;
+		case Enma::Key::Right:
+			pos = pos + glm::vec3({ 0.1f, 0.0f, 0.0f });
+			break;
+		case Enma::Key::Left:
+			pos = pos + glm::vec3({ -0.1f, 0.0f, 0.0f });
+			break;
+		}
+
+		m_Camera.SetPosition(pos);
 		return true;
 	}
 }

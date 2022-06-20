@@ -12,7 +12,7 @@ public:
 	void OnUpdate() override
 	{
 		//EM_INFO("ExampleLayer::Update");
-		if (Enma::Input::IsKeyPressed(Enma::Key::Space))
+		if (Enma::Input::IsKeyPressed(Enma::Key::Up))
 			EM_TRACE("Spacebar pressed! :D");
 	}
 

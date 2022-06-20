@@ -9,7 +9,4 @@ namespace Enma
 	{
 	}
 
-	Layer::~Layer()
-	{
-	}
 }

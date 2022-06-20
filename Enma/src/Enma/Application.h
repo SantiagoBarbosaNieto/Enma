@@ -1,14 +1,16 @@
 #pragma once
-#include "Core.h"
-#include "Window.h"
+#include "Enma/Core.h"
+#include "Enma/Window.h"
 #include "Enma/LayerStack.h"
-#include "Events/Event.h"
+#include "Enma/Events/Event.h"
 #include "Enma/Events/ApplicationEvent.h"
 #include "Enma/Renderer/Shader.h"
 #include "Enma/Renderer/Buffer.h"
 #include "Enma/Renderer/VertexArray.h"
 
 #include "Enma/ImGui/ImGuiLayer.h"
+
+#include "Enma/Renderer/OrthographicCamera.h"
 
 
 namespace Enma {
@@ -18,7 +20,7 @@ namespace Enma {
 	{
 	public:
 		Application();
-		virtual ~Application();
+		virtual ~Application() = default;
 
 		void Run();
 
@@ -31,6 +33,7 @@ namespace Enma {
 		inline Window& GetWindow() { return *m_Window; }
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
+		bool OnKeyPressed(KeyPressedEvent& e);
 
 		std::unique_ptr<Window> m_Window;
 		ImGuiLayer* m_ImGuiLayer;
@@ -43,6 +46,8 @@ namespace Enma {
 
 		std::shared_ptr<VertexArray> m_SquareVertexArray;
 		std::shared_ptr<Shader> m_BlueShader;
+
+		OrthographicCamera m_Camera;
 	private:
 		static Application* s_Instance;
 	};

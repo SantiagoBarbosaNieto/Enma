@@ -1,6 +1,8 @@
 #pragma once
 #include "empch.h"
 
+#include <glm/glm.hpp>
+
 namespace Enma
 {
 	class Shader
@@ -11,6 +13,8 @@ namespace Enma
 
 		void Bind() const;
 		void Unbind() const;
+
+		void UploadUniformMat4(const std::string name, const glm::mat4& matrix);
 
 	private:
 		uint32_t m_RendererID;

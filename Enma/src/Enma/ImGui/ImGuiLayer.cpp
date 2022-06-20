@@ -17,10 +17,6 @@ namespace Enma
 	{
 	}
 
-	ImGuiLayer::~ImGuiLayer()
-	{
-	}
-
 	void ImGuiLayer::OnAttach()
 	{
 		// Setup Dear ImGui context
@@ -32,7 +28,7 @@ namespace Enma
 		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
 		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
 		//io.ConfigViewportsNoAutoMerge = true;
-		//io.ConfigViewportsNoTaskBarIcon = true;
+		io.ConfigViewportsNoTaskBarIcon = true;
 
 		// Setup Dear ImGui style
 		ImGui::StyleColorsDark();
