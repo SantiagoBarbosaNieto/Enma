@@ -144,9 +144,10 @@ public:
 
 	}
 
-	void OnUpdate(Enma::Timestep deltaTime) override
+	void OnUpdate() override
 	{
-		//EM_TRACE("Delta time: {0} s", ts.GetSeconds());
+		Enma::Timestep deltaTime = Enma::Time::DeltaTime();
+		EM_TRACE("Delta time: {0} s ({1} ms)", deltaTime.GetSeconds(), deltaTime.GetMilliseconds());
 
 		if (Enma::Input::IsKeyPressed(Enma::Key::Up) || Enma::Input::IsKeyPressed(Enma::Key::W))
 			m_CameraPosition.y += m_CameraMoveSpeed * deltaTime;
@@ -204,10 +205,10 @@ private:
 
 	Enma::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;
-	float m_CameraMoveSpeed = 1.0f;
+	float m_CameraMoveSpeed = 3.0f;
 
 	float m_CameraRotation = 0;
-	float m_CameraRotationSpeed = 25.0f;
+	float m_CameraRotationSpeed = 100.0f;
 };
 
 class Sandbox : public Enma::Application 

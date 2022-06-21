@@ -1,6 +1,7 @@
 #pragma once
 #include "Enma/Core.h"
-#include "Enma/Core/Timestep.h"
+#include "Enma/Core/Time.h"
+
 
 #include "Enma/Window.h"
 #include "Enma/LayerStack.h"
@@ -36,7 +37,6 @@ namespace Enma {
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running;
 		LayerStack m_LayerStack;
-		float m_LastFrameTime = 0.0f;
 	private:
 		static Application* s_Instance;
 	};
