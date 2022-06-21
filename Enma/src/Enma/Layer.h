@@ -2,6 +2,8 @@
 #include "Enma/Core.h"
 #include "Enma/Events/Event.h"
 
+#include "Enma/Core/Timestep.h"
+
 namespace Enma
 {
 	class ENMA_API Layer
@@ -12,7 +14,7 @@ namespace Enma
 
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
-		virtual void OnUpdate() {}
+		virtual void OnUpdate(Timestep deltaTime) {}
 		virtual void OnImGuiRender() {}
 		virtual void OnEvent(Event& event) {}
 

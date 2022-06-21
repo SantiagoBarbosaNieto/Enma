@@ -7,6 +7,7 @@
 
 #include "Enma/Input.h"
 
+#include <GLFW/glfw3.h>
 
 namespace Enma {
 
@@ -57,11 +58,13 @@ namespace Enma {
 
 		while (m_Running)
 		{
-
+			float time = glfwGetTime(); //Platform::GetTime();
+			Timestep deltaTime = time - m_LastFrameTime;
+			m_LastFrameTime = time;
 			
 
 			for (Layer* layer : m_LayerStack)
-				layer->OnUpdate();
+				layer->OnUpdate(deltaTime);
 			m_ImGuiLayer->Begin();
 			for (Layer* layer : m_LayerStack)
 				layer->OnImGuiRender();

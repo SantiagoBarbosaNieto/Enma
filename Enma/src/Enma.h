@@ -5,6 +5,8 @@
 #include "Enma/Application.h"
 #include "Enma/Log.h"
 
+#include "Enma/Core/Timestep.h"
+
 #include "Enma/Input.h"
 #include "Enma/MouseCodes.h"
 #include "Enma/Keycodes.h"

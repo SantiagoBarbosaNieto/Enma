@@ -144,23 +144,25 @@ public:
 
 	}
 
-	void OnUpdate() override
+	void OnUpdate(Enma::Timestep deltaTime) override
 	{
+		//EM_TRACE("Delta time: {0} s", ts.GetSeconds());
+
 		if (Enma::Input::IsKeyPressed(Enma::Key::Up) || Enma::Input::IsKeyPressed(Enma::Key::W))
-			m_CameraPosition.y += m_CameraMoveSpeed;
+			m_CameraPosition.y += m_CameraMoveSpeed * deltaTime;
 		else if (Enma::Input::IsKeyPressed(Enma::Key::Down) || Enma::Input::IsKeyPressed(Enma::Key::S))
-			m_CameraPosition.y -= m_CameraMoveSpeed;
+			m_CameraPosition.y -= m_CameraMoveSpeed * deltaTime;
 		
 		if (Enma::Input::IsKeyPressed(Enma::Key::Right) || Enma::Input::IsKeyPressed(Enma::Key::D))
-			m_CameraPosition.x += m_CameraMoveSpeed;
+			m_CameraPosition.x += m_CameraMoveSpeed * deltaTime;
 		else if (Enma::Input::IsKeyPressed(Enma::Key::Left) || Enma::Input::IsKeyPressed(Enma::Key::A))
-			m_CameraPosition.x -= m_CameraMoveSpeed;
+			m_CameraPosition.x -= m_CameraMoveSpeed * deltaTime;
 
 
 		if (Enma::Input::IsKeyPressed(Enma::Key::Q))
-			m_CameraRotation += m_CameraRotationSpeed;
+			m_CameraRotation += m_CameraRotationSpeed * deltaTime;
 		else if (Enma::Input::IsKeyPressed(Enma::Key::E))
-			m_CameraRotation -= m_CameraRotationSpeed;
+			m_CameraRotation -= m_CameraRotationSpeed * deltaTime;
 
 		Enma::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 0.5f });
 		Enma::RenderCommand::Clear();
@@ -202,10 +204,10 @@ private:
 
 	Enma::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;
-	float m_CameraMoveSpeed = 0.05f;
+	float m_CameraMoveSpeed = 1.0f;
 
 	float m_CameraRotation = 0;
-	float m_CameraRotationSpeed = 1.0f;
+	float m_CameraRotationSpeed = 25.0f;
 };
 
 class Sandbox : public Enma::Application 
