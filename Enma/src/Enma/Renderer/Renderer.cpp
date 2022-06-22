@@ -1,5 +1,7 @@
 #include "empch.h"
 #include "Renderer.h"
+
+#include "Platform/OpenGL/OpenGLShader.h"
 namespace Enma
 {
 	Renderer::SceneData* Renderer::m_SceneData = new Renderer::SceneData;
@@ -13,10 +15,10 @@ namespace Enma
 	{
 	}
 
-	void Renderer::Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertexArray)
+	void Renderer::Submit(const Ref<Shader>& shader, const Ref<VertexArray>& vertexArray, const glm::mat4& transform)
 	{
-		shader->Bind();
-		shader->UploadUniformMat4("u_ProjectionView", m_SceneData->ProjectionViewMatrix);
+		std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_ProjectionView", m_SceneData->ProjectionViewMatrix);
+		std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_Transform", transform);
 
 
 

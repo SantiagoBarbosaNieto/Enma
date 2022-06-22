@@ -1,4 +1,5 @@
 #pragma once
+#include <memory>
 
 #ifdef EM_PLATFORM_WINDOWS
 	#if EM_DYNAMIC_LINKING
@@ -25,3 +26,12 @@
 #define BIT(x) (1 << x)
 
 #define EM_BIND_EVENT_FN(fn) std::bind(&fn, this, std::placeholders::_1)
+
+namespace Enma
+{
+	template <typename T>
+	using Scope = std::unique_ptr<T>;
+
+	template <typename T>
+	using Ref = std::shared_ptr<T>;
+}

@@ -12,7 +12,7 @@ namespace Enma
 		virtual float DeltaTimeImpl() override;
 		virtual void UpdateTimeImpl() override;
 	private:
-		 Timestep s_Time;
-		 Timestep s_LastFrameTime;
+		Timestep m_Time;
+		Timestep m_LastFrameTime;
 	};
 }

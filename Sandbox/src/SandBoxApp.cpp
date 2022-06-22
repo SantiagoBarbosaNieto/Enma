@@ -1,5 +1,8 @@
 #include <Enma.h>
 #include "imgui/imgui.h"
+#include "Platform/OpenGL/OpenGLShader.h"
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 class ExampleLayer : public Enma::Layer
 {
@@ -21,7 +24,7 @@ public:
 
 
 		// Vertex Buffer
-		std::shared_ptr<Enma::VertexBuffer> vertexBuffer;
+		Enma::Ref<Enma::VertexBuffer> vertexBuffer;
 		vertexBuffer.reset(Enma::VertexBuffer::Create(vertices, sizeof(vertices)));
 
 		Enma::BufferLayout layout = {
@@ -37,7 +40,7 @@ public:
 		// Index Buffer
 		unsigned int indices[3] = { 0,1,2 };
 
-		std::shared_ptr<Enma::IndexBuffer> indexBuffer;
+		Enma::Ref<Enma::IndexBuffer> indexBuffer;
 		indexBuffer.reset(Enma::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
@@ -53,7 +56,7 @@ public:
 			-0.75f,  0.75f, 0.0f
 		};
 
-		std::shared_ptr<Enma::VertexBuffer> squareVertexBuffer;
+		Enma::Ref<Enma::VertexBuffer> squareVertexBuffer;
 		squareVertexBuffer.reset(Enma::VertexBuffer::Create(verticesSquare, sizeof(verticesSquare)));
 
 		squareVertexBuffer->SetLayout({
@@ -63,7 +66,7 @@ public:
 
 		unsigned int indicesSquare[6] = { 0, 1, 2, 2, 3, 0 };
 
-		std::shared_ptr<Enma::IndexBuffer> squareIndexBuffer;
+		Enma::Ref<Enma::IndexBuffer> squareIndexBuffer;
 		squareIndexBuffer.reset(Enma::IndexBuffer::Create(indicesSquare, sizeof(indicesSquare) / sizeof(uint32_t)));
 
 		m_SquareVertexArray->SetIndexBuffer(squareIndexBuffer);
@@ -76,6 +79,7 @@ public:
 			layout(location = 1) in vec4 a_Color;
 
 			uniform mat4 u_ProjectionView;
+			uniform mat4 u_Transform;	 
 
 			out vec4 v_Color;
 			out vec3 v_Position;
@@ -84,7 +88,7 @@ public:
 			{
 				v_Position =  a_Position;
 				v_Color = a_Color;
-				gl_Position = u_ProjectionView * vec4(a_Position,1.0);
+				gl_Position = u_ProjectionView * u_Transform * vec4(a_Position,1.0);
 				
 			}
 		)";
@@ -107,39 +111,41 @@ public:
 		)";
 
 		// Shader - Square
-		std::string blueShaderVertexSrc = R"(
+		std::string flatColorShaderVertexSrc = R"(
 			#version 330 core
 			
 			layout(location = 0) in vec3 a_Position;
 			uniform mat4 u_ProjectionView;
+			uniform mat4 u_Transform;
 
 			out vec3 v_Position;
 			
 			void main()
 			{
 				v_Position =  a_Position;
-				gl_Position = u_ProjectionView * vec4(a_Position,1.0);
+				gl_Position = u_ProjectionView * u_Transform  * vec4(a_Position,1.0);
 				
 			}
 		)";
 
 
-		std::string blueShaderFragmentSrc = R"(
+		std::string flatColorShaderFragmentSrc = R"(
 			#version 330 core
 			
 			layout(location = 0) out vec4 color;
 			
+			uniform vec3 u_Color;
 			in vec3 v_Position;
 
 			void main()
 			{
-				color = vec4(0.2, 0.3, 0.8, 1.0);
+				color = vec4(u_Color, 1.0f);
 				
 			}
 		)";
 
-		m_Shader.reset(new Enma::Shader(vertexSrc, fragmentSrc));
-		m_BlueShader.reset(new Enma::Shader(blueShaderVertexSrc, blueShaderFragmentSrc));
+		m_Shader.reset(Enma::Shader::Create(vertexSrc, fragmentSrc));
+		m_FlatColorShader.reset(Enma::Shader::Create(flatColorShaderVertexSrc, flatColorShaderFragmentSrc));
 
 
 	}
@@ -147,7 +153,7 @@ public:
 	void OnUpdate() override
 	{
 		Enma::Timestep deltaTime = Enma::Time::DeltaTime();
-		EM_TRACE("Delta time: {0} s ({1} ms)", deltaTime.GetSeconds(), deltaTime.GetMilliseconds());
+		//EM_TRACE("Delta time: {0} s ({1} ms)", deltaTime.GetSeconds(), deltaTime.GetMilliseconds());
 
 		if (Enma::Input::IsKeyPressed(Enma::Key::Up) || Enma::Input::IsKeyPressed(Enma::Key::W))
 			m_CameraPosition.y += m_CameraMoveSpeed * deltaTime;
@@ -165,14 +171,34 @@ public:
 		else if (Enma::Input::IsKeyPressed(Enma::Key::E))
 			m_CameraRotation -= m_CameraRotationSpeed * deltaTime;
 
+
 		Enma::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 0.5f });
 		Enma::RenderCommand::Clear();
 
 		m_Camera.SetPosition(m_CameraPosition);
 		m_Camera.SetRotation(m_CameraRotation);
+
+
 		Enma::Renderer::BeginScene(m_Camera);
 
-		Enma::Renderer::Submit(m_BlueShader, m_SquareVertexArray);
+		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
+
+		glm::vec4 redColor(0.8f, 0.2f, 0.3f, 1.0f);
+		glm::vec4 blueColor(0.2f, 0.3f, 0.8f, 1.0f);
+
+		std::dynamic_pointer_cast<Enma::OpenGLShader>(m_FlatColorShader)->Bind();
+		std::dynamic_pointer_cast<Enma::OpenGLShader>(m_FlatColorShader)->UploadUniformFloat3("u_Color", m_SquareColor);
+
+		for (int i = 0; i < 20; i++)
+		{
+			for (int j = 0; j < 20; j++)
+			{
+				glm::vec3 pos(i * 0.18f ,j * 0.18f, 0.0f);
+				glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos ) * scale;
+				Enma::Renderer::Submit(m_FlatColorShader, m_SquareVertexArray, transform);
+			}
+		}
+		std::dynamic_pointer_cast<Enma::OpenGLShader>(m_Shader)->Bind();
 		Enma::Renderer::Submit(m_Shader, m_VertexArray);
 
 		Enma::Renderer::EndScene();
@@ -180,6 +206,9 @@ public:
 
 	void OnImGuiRender() override
 	{
+		ImGui::Begin("Settings");
+		ImGui::ColorEdit3("Square Color", glm::value_ptr(m_SquareColor));
+		ImGui::End();
 	}
 
 	void OnEvent(Enma::Event& e) override
@@ -196,12 +225,12 @@ public:
 	}
 private: 
 
-	std::shared_ptr<Enma::Shader> m_Shader;
-	std::shared_ptr<Enma::VertexArray> m_VertexArray;
+	Enma::Ref<Enma::Shader> m_Shader;
+	Enma::Ref<Enma::VertexArray> m_VertexArray;
 
 
-	std::shared_ptr<Enma::VertexArray> m_SquareVertexArray;
-	std::shared_ptr<Enma::Shader> m_BlueShader;
+	Enma::Ref<Enma::VertexArray> m_SquareVertexArray;
+	Enma::Ref<Enma::Shader> m_FlatColorShader;
 
 	Enma::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;
@@ -209,6 +238,8 @@ private:
 
 	float m_CameraRotation = 0;
 	float m_CameraRotationSpeed = 100.0f;
+ 
+	glm::vec3 m_SquareColor = { 0.2f, 0.3f, 0.8f };
 };
 
 class Sandbox : public Enma::Application 
