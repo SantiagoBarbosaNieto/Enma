@@ -22,6 +22,7 @@
 
 #include "Enma/Renderer/Buffer.h"
 #include "Enma/Renderer/Shader.h"
+#include "Enma/Renderer/Texture.h"
 #include "Enma/Renderer/VertexArray.h"
 
 #include "Enma/Renderer/OrthographicCamera.h"

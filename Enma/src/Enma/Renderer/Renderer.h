@@ -15,13 +15,15 @@ namespace Enma
 
 		static void Submit(const Ref<Shader>& shader, const Ref<VertexArray>& vertexArray, const glm::mat4& transform = glm::mat4(1.0f));
 
-
+		static void OnWindowResize(float width, float height);
 
 		inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); };
 	private:
+
+
 		struct SceneData {
 			glm::mat4 ProjectionViewMatrix; ;
 		};
-		static SceneData* m_SceneData;
+		static SceneData* s_SceneData;
 	};
 }

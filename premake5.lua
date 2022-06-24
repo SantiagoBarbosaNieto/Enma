@@ -15,6 +15,7 @@ workspace "Enma"
     IncludeDir["Glad"] = "Enma/vendor/Glad/include"
     IncludeDir["ImGui"] = "Enma/vendor/imgui/"
     IncludeDir["glm"] = "Enma/vendor/glm/"
+	IncludeDir["stb_image"] = "Enma/vendor/stb/stb_image"
 
 --_---------------------------------------------- ENMA --------------------------------
 project "Enma"
@@ -35,6 +36,8 @@ project "Enma"
     {
         "%{prj.name}/src/**.h",
         "%{prj.name}/src/**.cpp",
+        "%{prj.name}/vendor/stb/stb_image/*.h",
+        "%{prj.name}/vendor/stb/stb_image/*.cpp",
         "%{prj.name}/vendor/glm/glm/*.hpp",
         "%{prj.name}/vendor/glm/glm/*.inl"
     }
@@ -46,7 +49,8 @@ project "Enma"
         "%{IncludeDir.GLFW}",
         "%{IncludeDir.Glad}",
         "%{IncludeDir.ImGui}",
-        "%{IncludeDir.glm}"
+        "%{IncludeDir.glm}",
+        "%{IncludeDir.stb_image}"
     }
 
     links
