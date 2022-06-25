@@ -55,7 +55,7 @@ namespace Enma
 	{
 		std::string result;
 
-		std::ifstream in(filepath, std::ios::in, std::ios::binary);
+		std::ifstream in(filepath, std::ios::in | std::ios::binary);
 		if (in)
 		{
 			in.seekg(0, std::ios::end);
@@ -101,7 +101,10 @@ namespace Enma
 	{
 
 		GLuint program = glCreateProgram();
-		std::vector<GLenum> glShaderIDs(shaderSources.size());
+		EM_CORE_ASSERT(shaderSources.size() <= 10, "Only 10 shaders supported!.. tried to allocate for {0} shaders", shaderSources.size());
+		std::array<GLenum, 10> glShaderIDs;
+
+		int glShaderIDIndex = 0;
 
 		for (auto&& [type, src] : shaderSources)
 		{
@@ -139,7 +142,7 @@ namespace Enma
 			}
 			// Attach shader to program
 			glAttachShader(program, shader);
-			glShaderIDs.push_back(shader);
+			glShaderIDs[glShaderIDIndex++] = shader;
 		}
 
 
