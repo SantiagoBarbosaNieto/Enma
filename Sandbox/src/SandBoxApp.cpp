@@ -146,14 +146,14 @@ public:
 		)";
 
 
-		m_Shader = Enma::Shader::Create(vertexSrc, fragmentSrc);
-		m_FlatColorShader = Enma::Shader::Create(flatColorShaderVertexSrc, flatColorShaderFragmentSrc);
-		m_TextureShader = Enma::Shader::Create("assets/shaders/Texture.glsl");
+		m_Shader = Enma::Shader::Create("VertexPosColor",vertexSrc, fragmentSrc);
+		m_FlatColorShader = Enma::Shader::Create("FlatColor",flatColorShaderVertexSrc, flatColorShaderFragmentSrc);
+		auto textureShader = m_ShaderLibrary.Load("assets/shaders/Texture.glsl");
 		m_ZoroTexture = Enma::Texture2D::Create("assets/textures/zoro.png");
 
 
-		std::dynamic_pointer_cast<Enma::OpenGLShader>(m_TextureShader)->Bind();
-		std::dynamic_pointer_cast<Enma::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
+		std::dynamic_pointer_cast<Enma::OpenGLShader>(textureShader)->Bind();
+		std::dynamic_pointer_cast<Enma::OpenGLShader>(textureShader)->UploadUniformInt("u_Texture", 0);
 
 	}
 
@@ -206,9 +206,11 @@ public:
 			}
 		}
 
+		auto textureShader = m_ShaderLibrary.Get("Texture");
+
 		m_ZoroTexture->Bind();
-		std::dynamic_pointer_cast<Enma::OpenGLShader>(m_TextureShader)->Bind();
-		Enma::Renderer::Submit(m_TextureShader, m_SquareVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+		std::dynamic_pointer_cast<Enma::OpenGLShader>(textureShader)->Bind();
+		Enma::Renderer::Submit(textureShader, m_SquareVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 		//Triangle render
 		//Enma::Renderer::Submit(m_Shader, m_VertexArray);
 
@@ -235,13 +237,13 @@ public:
 		return true;
 	}
 private: 
-
+	Enma::ShaderLibrary m_ShaderLibrary; 
 	Enma::Ref<Enma::Shader> m_Shader;
 	Enma::Ref<Enma::VertexArray> m_VertexArray;
 
 
 	Enma::Ref<Enma::VertexArray> m_SquareVertexArray;
-	Enma::Ref<Enma::Shader> m_FlatColorShader, m_TextureShader;
+	Enma::Ref<Enma::Shader> m_FlatColorShader;
 	Enma::Ref<Enma::Texture2D> m_ZoroTexture;
 
 	Enma::OrthographicCamera m_Camera;
