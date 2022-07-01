@@ -1,6 +1,5 @@
 #pragma once
 #include "Enma/Core.h"
-#include "Enma/Core/Time.h"
 
 
 #include "Enma/Window.h"
@@ -39,6 +38,7 @@ namespace Enma {
 		bool m_Running;
 		bool m_Minimized;
 		LayerStack m_LayerStack;
+		float m_LastFrameTime = 0.0f;
 	private:
 		static Application* s_Instance;
 	};

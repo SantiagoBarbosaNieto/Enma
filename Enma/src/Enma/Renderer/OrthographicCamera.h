@@ -8,12 +8,14 @@ namespace Enma
 	{
 	public:
 		OrthographicCamera(float left, float right, float bottom, float top);
+		void SetProjection(float left, float right, float bottom, float top);
 
 		const glm::vec3 GetPosition() { return m_Position; }
 		void SetPosition(const glm::vec3 position) { m_Position = position; RecalculateViewMatrix(); }
 		
 		float GetRotation() { return m_Rotation; }
 		void SetRotation(float rotation) { m_Rotation = rotation; RecalculateViewMatrix(); }
+
 
 		const glm::mat4 GetProjectionMatrix() { return m_ProjectionMatrix; }
 		const glm::mat4 GetViewMatrix() { return m_ViewMatrix; }

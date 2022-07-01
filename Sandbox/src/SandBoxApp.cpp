@@ -8,10 +8,9 @@ class ExampleLayer : public Enma::Layer
 {
 public:
 	ExampleLayer()
-		:Layer("Example"), m_Camera(-1.6, 1.6f, -0.9f, 0.9f), m_CameraPosition({0.0f,0.0f,0.0f})
+		:Layer("Example"), m_CameraController(1280.0f / 720.0f)
 	{
-		m_Camera.SetPosition(m_CameraPosition);
-		m_Camera.SetRotation(m_CameraRotation);
+
 		// Vertex Array
 		m_VertexArray.reset(Enma::VertexArray::Create());
 
@@ -157,36 +156,17 @@ public:
 
 	}
 
-	void OnUpdate() override
+	void OnUpdate(Enma::Timestep ts) override
 	{
-		Enma::Timestep deltaTime = Enma::Time::DeltaTime();
-		//EM_TRACE("Delta time: {0} s ({1} ms)", deltaTime.GetSeconds(), deltaTime.GetMilliseconds());
+		//Update
+		m_CameraController.OnUpdte(ts);
 
-		if (Enma::Input::IsKeyPressed(Enma::Key::Up) || Enma::Input::IsKeyPressed(Enma::Key::W))
-			m_CameraPosition.y += m_CameraMoveSpeed * deltaTime;
-		else if (Enma::Input::IsKeyPressed(Enma::Key::Down) || Enma::Input::IsKeyPressed(Enma::Key::S))
-			m_CameraPosition.y -= m_CameraMoveSpeed * deltaTime;
-		
-		if (Enma::Input::IsKeyPressed(Enma::Key::Right) || Enma::Input::IsKeyPressed(Enma::Key::D))
-			m_CameraPosition.x += m_CameraMoveSpeed * deltaTime;
-		else if (Enma::Input::IsKeyPressed(Enma::Key::Left) || Enma::Input::IsKeyPressed(Enma::Key::A))
-			m_CameraPosition.x -= m_CameraMoveSpeed * deltaTime;
-
-
-		if (Enma::Input::IsKeyPressed(Enma::Key::Q))
-			m_CameraRotation += m_CameraRotationSpeed * deltaTime;
-		else if (Enma::Input::IsKeyPressed(Enma::Key::E))
-			m_CameraRotation -= m_CameraRotationSpeed * deltaTime;
-
-
+		//Render
 		Enma::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 0.5f });
 		Enma::RenderCommand::Clear();
 
-		m_Camera.SetPosition(m_CameraPosition);
-		m_Camera.SetRotation(m_CameraRotation);
 
-
-		Enma::Renderer::BeginScene(m_Camera);
+		Enma::Renderer::BeginScene(m_CameraController.GetCamera());
 
 		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
@@ -213,7 +193,6 @@ public:
 		Enma::Renderer::Submit(textureShader, m_SquareVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 		//Triangle render
 		//Enma::Renderer::Submit(m_Shader, m_VertexArray);
-
 		Enma::Renderer::EndScene();
 	}
 
@@ -226,16 +205,11 @@ public:
 
 	void OnEvent(Enma::Event& e) override
 	{
-		Enma::EventDispatcher dispatcher(e);
-		dispatcher.Dispatch<Enma::KeyPressedEvent> (EM_BIND_EVENT_FN(ExampleLayer::OnKeyPressed));
+		m_CameraController.OnEvent(e);
+
 	} 
 
-	bool OnKeyPressed(Enma::KeyPressedEvent& e)
-	{
-		
 
-		return true;
-	}
 private: 
 	Enma::ShaderLibrary m_ShaderLibrary; 
 	Enma::Ref<Enma::Shader> m_Shader;
@@ -246,12 +220,7 @@ private:
 	Enma::Ref<Enma::Shader> m_FlatColorShader;
 	Enma::Ref<Enma::Texture2D> m_ZoroTexture;
 
-	Enma::OrthographicCamera m_Camera;
-	glm::vec3 m_CameraPosition;
-	float m_CameraMoveSpeed = 3.0f;
-
-	float m_CameraRotation = 0;
-	float m_CameraRotationSpeed = 100.0f;
+	Enma::OrthographicCameraController m_CameraController;
  
 	glm::vec3 m_SquareColor = { 0.2f, 0.3f, 0.8f };
 };

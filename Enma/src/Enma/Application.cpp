@@ -2,14 +2,11 @@
 #include "Application.h"
 
 #include "Enma/Log.h"
-
 #include "Enma/Renderer/Renderer.h"
-
 #include "Enma/Input.h"
+#include "Enma/Utils/PlatformUtils.h"
 
 #include <GLFW/glfw3.h>
-
-#include "Enma/Core/Time.h"
 
 namespace Enma {
 
@@ -49,6 +46,7 @@ namespace Enma {
 	{
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(EM_BIND_EVENT_FN(Application::OnWindowClose));
+		dispatcher.Dispatch<WindowResizeEvent>(EM_BIND_EVENT_FN(Application::OnWindowResize));
 
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin(); )
 		{
@@ -64,15 +62,20 @@ namespace Enma {
 
 		while (m_Running)
 		{
-			Time::UpdateTime();
+			float time = Time::GetTime();
+			Timestep ts = time - m_LastFrameTime;
+			m_LastFrameTime = time;
 			
-
-			for (Layer* layer : m_LayerStack)
-				layer->OnUpdate();
+			if (!m_Minimized)
+			{
+				for (Layer* layer : m_LayerStack)
+					layer->OnUpdate(ts);
+			}
 			m_ImGuiLayer->Begin();
 			for (Layer* layer : m_LayerStack)
 				layer->OnImGuiRender();
 			m_ImGuiLayer->End();
+
 			m_Window->OnUpdate();
 		}
 	}
