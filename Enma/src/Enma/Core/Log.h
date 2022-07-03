@@ -29,7 +29,7 @@ namespace Enma {
 #define EM_CORE_FATAL(...)   Enma::Log::GetCoreLogger()->critical(__VA_ARGS__)
 
 
-//Core log macros
+//Normal log macros
 #define EM_TRACE(...)        Enma::Log::GetClientLogger()->trace(__VA_ARGS__)
 #define EM_INFO(...)         Enma::Log::GetClientLogger()->info(__VA_ARGS__)
 #define EM_WARN(...)         Enma::Log::GetClientLogger()->warn(__VA_ARGS__)
