@@ -1,5 +1,5 @@
 #pragma once
-#include "Enma/Core.h"
+#include "Enma/Core/Core.h"
 #include "Enma/Events/Event.h"
 
 #include "Enma/Core/Timestep.h"

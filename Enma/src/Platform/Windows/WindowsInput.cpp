@@ -1,8 +1,8 @@
 
 #include "empch.h"
 
-#include "WindowsInput.h"
-#include "Enma/Application.h"
+#include "Platform/Windows/WindowsInput.h"
+#include "Enma/Core/Application.h"
 
 #include <GLFW/glfw3.h>
 

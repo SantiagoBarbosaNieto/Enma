@@ -1,7 +1,7 @@
 #include "empch.h"
-#include "Buffer.h"
+#include "Enma/Renderer/Buffer.h"
 
-#include "Renderer.h"
+#include "Enma/Renderer/Renderer.h"
 #include "Platform/OpenGL/OpenGLBuffer.h"
 
 namespace Enma

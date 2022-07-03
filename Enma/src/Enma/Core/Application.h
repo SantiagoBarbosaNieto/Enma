@@ -1,9 +1,9 @@
 #pragma once
-#include "Enma/Core.h"
+#include "Enma/Core/Core.h"
 
 
-#include "Enma/Window.h"
-#include "Enma/LayerStack.h"
+#include "Enma/Core/Window.h"
+#include "Enma/Core/LayerStack.h"
 #include "Enma/Events/Event.h"
 #include "Enma/Events/ApplicationEvent.h"
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Enma/Input.h"
+#include "Enma/Core/Input.h"
 
 namespace Enma
 {

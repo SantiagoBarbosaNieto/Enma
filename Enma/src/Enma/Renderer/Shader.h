@@ -1,5 +1,4 @@
 #pragma once
-#include "empch.h"
 
 #include <glm/glm.hpp>
 

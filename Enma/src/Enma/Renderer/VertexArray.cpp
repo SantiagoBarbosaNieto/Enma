@@ -1,7 +1,7 @@
 #include "empch.h"
-#include "VertexArray.h"
+#include "Enma/Renderer/VertexArray.h"
 
-#include "Renderer.h"
+#include "Enma/Renderer/Renderer.h"
 
 #include "Platform/OpenGL/OpenGLVertexArray.h"
 

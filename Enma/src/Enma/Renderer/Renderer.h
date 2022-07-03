@@ -1,8 +1,8 @@
 #pragma once
 
-#include "RenderCommand.h"
-#include "Shader.h"
-#include "OrthographicCamera.h"
+#include "Enma/Renderer/RenderCommand.h"
+#include "Enma/Renderer/Shader.h"
+#include "Enma/Renderer/OrthographicCamera.h"
 
 namespace Enma
 {

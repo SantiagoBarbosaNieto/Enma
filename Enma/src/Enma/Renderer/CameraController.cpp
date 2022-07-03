@@ -1,10 +1,10 @@
 #include "empch.h"
-#include "CameraController.h"
+#include "Enma/Renderer/CameraController.h"
 #include "Enma/Core/Timestep.h"
-#include "Enma/Input.h"
-#include "Enma/MouseCodes.h"
-#include "Enma/Keycodes.h"
-#include "Enma/GamepadCodes.h"
+#include "Enma/Core/Input.h"
+#include "Enma/Core/MouseCodes.h"
+#include "Enma/Core/Keycodes.h"
+#include "Enma/Core/GamepadCodes.h"
 
 namespace Enma
 {

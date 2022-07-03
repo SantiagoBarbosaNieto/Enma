@@ -1,11 +1,12 @@
 #include "empch.h"
-#include "ImGuiLayer.h"
 
-#include "imgui.h" 
+#include "Enma/ImGui/ImGuiLayer.h"
+#include "Enma/Core/Application.h"
+
 #include "backends/imgui_impl_glfw.h"
 #include "backends/imgui_impl_opengl3.h"
 
-#include "Enma/Application.h"
+#include <imgui.h> 
 //Temporary
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>

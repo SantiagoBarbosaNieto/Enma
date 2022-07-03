@@ -2,7 +2,7 @@
 
 #include "empch.h"
 
-#include "Enma/Core.h"
+#include "Enma/Core/Core.h"
 #include "Enma/Events/Event.h"
 
 namespace Enma

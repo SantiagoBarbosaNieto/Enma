@@ -1,7 +1,7 @@
 #include "empch.h"
-#include "Shader.h"
+#include "Enma/Renderer/Shader.h"
 
-#include "Renderer.h"
+#include "Enma/Renderer/Renderer.h"
 #include "Platform/OpenGL/OpenGLShader.h"
 namespace Enma
 {

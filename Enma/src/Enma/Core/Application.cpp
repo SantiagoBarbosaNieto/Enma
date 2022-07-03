@@ -1,9 +1,9 @@
 #include "empch.h"
 #include "Application.h"
 
-#include "Enma/Log.h"
+#include "Enma/Core/Log.h"
 #include "Enma/Renderer/Renderer.h"
-#include "Enma/Input.h"
+#include "Enma/Core/Input.h"
 #include "Enma/Utils/PlatformUtils.h"
 
 #include <GLFW/glfw3.h>
@@ -62,7 +62,7 @@ namespace Enma {
 
 		while (m_Running)
 		{
-			float time = Time::GetTime();
+			float time = Platform::GetTime();
 			Timestep ts = time - m_LastFrameTime;
 			m_LastFrameTime = time;
 			

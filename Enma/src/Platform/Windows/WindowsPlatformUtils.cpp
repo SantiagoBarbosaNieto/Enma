@@ -4,7 +4,7 @@
 
 namespace Enma
 {
-	float Time::GetTime()
+	float Platform::GetTime()
 	{
 		return glfwGetTime();
 	}

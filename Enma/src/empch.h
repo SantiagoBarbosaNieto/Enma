@@ -12,7 +12,7 @@
 #include <unordered_map>
 #include <unordered_set>
 
-#include "Enma/Log.h"
+#include "Enma/Core/Log.h"
 
 #ifdef EM_PLATFORM_WINDOWS
 	#include <Windows.h>

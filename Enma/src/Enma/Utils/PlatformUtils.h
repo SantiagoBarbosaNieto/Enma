@@ -1,7 +1,7 @@
 #pragma once
 namespace Enma
 {
-	class Time
+	class Platform
 	{
 	public:
 		static float GetTime();

@@ -2,18 +2,18 @@
 
 //For use by Enma Applications
 #include <stdio.h>
-#include "Enma/Application.h"
-#include "Enma/Log.h"
+#include "Enma/Core/Application.h"
+#include "Enma/Core/Log.h"
 
 #include "Enma/Core/Timestep.h"
 
-#include "Enma/Input.h"
-#include "Enma/MouseCodes.h"
-#include "Enma/Keycodes.h"
-#include "Enma/GamepadCodes.h"
-#include "Enma/CameraController.h"
+#include "Enma/Core/Input.h"
+#include "Enma/Core/MouseCodes.h"
+#include "Enma/Core/Keycodes.h"
+#include "Enma/Core/GamepadCodes.h"
+#include "Enma/Renderer/CameraController.h"
 
-#include "Enma/Layer.h"
+#include "Enma/Core/Layer.h"
 #include "Enma/ImGui/ImGuiLayer.h"
 
 // ---- Renderer --------
@@ -28,5 +28,5 @@
 #include "Enma/Renderer/OrthographicCamera.h"
 
 // ---- Entry Point -----
-#include "Enma/EntryPoint.h"
+#include "Enma/Core/EntryPoint.h"
 // ---- Entry Point -----

@@ -1,7 +1,7 @@
 #pragma once
 #include "empch.h"
 
-#include "Enma/Core.h"
+#include "Enma/Core/Core.h"
 
 
 namespace Enma {

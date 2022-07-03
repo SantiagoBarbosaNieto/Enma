@@ -1,8 +1,8 @@
 #pragma once
 
 #include "empch.h"
-#include "Enma/Core.h"
-#include "Enma/Layer.h"
+#include "Enma/Core/Core.h"
+#include "Enma/Core/Layer.h"
 
 namespace Enma
 {

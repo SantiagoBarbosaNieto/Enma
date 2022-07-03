@@ -1,7 +1,7 @@
 #include "empch.h"
-#include "Texture.h"
+#include "Enma/Renderer/Texture.h"
 
-#include "Renderer.h"
+#include "Enma/Renderer/Renderer.h"
 #include "Platform/OpenGL/OpenGLTexture.h"
 
 namespace Enma
