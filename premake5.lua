@@ -145,6 +145,7 @@ project "GLFW"
 	kind "StaticLib"
 	staticruntime "on"
 	language "C"
+	warnings "Off"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -168,7 +169,6 @@ project "GLFW"
 		"%{GLFWlocation}/src/vulkan.c",
 		"%{GLFWlocation}/src/window.c",
 	}
-
 	filter "system:linux"
 		pic "On"
 

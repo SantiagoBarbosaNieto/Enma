@@ -50,7 +50,7 @@ namespace Enma
 
 	bool OrthographicCameraController::OnMouseScrolled(MouseScrolledEvent& e)
 	{
-		m_ZoomLevel -= e.GetYOffset() * 0.6 ;
+		m_ZoomLevel -= e.GetYOffset() * 0.6f ;
 		m_ZoomLevel = std::max(m_ZoomLevel, 0.2f);
 		m_Camera.SetProjection(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
 		return false;

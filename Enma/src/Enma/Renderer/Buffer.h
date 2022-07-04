@@ -67,6 +67,9 @@ namespace Enma
 				case ShaderDataType::Int4:     return 4;
 				case ShaderDataType::Bool:     return 1;
 			}
+
+			EM_CORE_ASSERT(false, "Unknown ShaderDataType!");
+			return -1;
 		}
 
 	};

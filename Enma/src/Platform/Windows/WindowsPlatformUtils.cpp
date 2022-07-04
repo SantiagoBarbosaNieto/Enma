@@ -6,6 +6,6 @@ namespace Enma
 {
 	float Platform::GetTime()
 	{
-		return glfwGetTime();
+		return (float)glfwGetTime();
 	}
 }
