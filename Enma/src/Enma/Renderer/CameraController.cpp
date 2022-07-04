@@ -19,14 +19,25 @@ namespace Enma
 		//EM_CORE_TRACE("Delta time: {0} s ({1} ms)", deltaTime.GetSeconds(), deltaTime.GetMilliseconds());
 
 		if (Input::IsKeyPressed(Key::Up) || Input::IsKeyPressed(Key::W))
-			m_CameraPosition.y += m_CameraTranslationSpeed * deltaTime;
+		{
+			m_CameraPosition.x += -sin(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * deltaTime;
+			m_CameraPosition.y += cos(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * deltaTime;
+		}
 		else if (Input::IsKeyPressed(Key::Down) || Input::IsKeyPressed(Key::S))
-			m_CameraPosition.y -= m_CameraTranslationSpeed * deltaTime;
-
+		{
+			m_CameraPosition.x -= -sin(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * deltaTime;
+			m_CameraPosition.y -= cos(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * deltaTime;
+		}
 		if (Input::IsKeyPressed(Key::Right) || Input::IsKeyPressed(Key::D))
-			m_CameraPosition.x += m_CameraTranslationSpeed * deltaTime;
+		{
+			m_CameraPosition.x += cos(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * deltaTime;
+			m_CameraPosition.y += sin(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * deltaTime;
+		}
 		else if (Input::IsKeyPressed(Key::Left) || Input::IsKeyPressed(Key::A))
-			m_CameraPosition.x -= m_CameraTranslationSpeed * deltaTime;
+		{
+			m_CameraPosition.x -= cos(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * deltaTime;
+			m_CameraPosition.y -= sin(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * deltaTime;
+		}
 
 		if(m_Rotation)
 		{
@@ -34,6 +45,12 @@ namespace Enma
 				m_CameraRotation += m_CameraRotationSpeed * deltaTime;
 			else if (Input::IsKeyPressed(Key::E))
 				m_CameraRotation -= m_CameraRotationSpeed * deltaTime;
+
+			if (m_CameraRotation > 180.0f)
+				m_CameraRotation -= 360.0f;
+			else if (m_CameraRotation <= -180.0f)
+				m_CameraRotation += 360.0f;
+
 			m_Camera.SetRotation(m_CameraRotation);
 		}
 

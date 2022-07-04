@@ -97,8 +97,10 @@ namespace Enma
 			EM_CORE_ASSERT(ShaderTypeFromString(type), "Invalid shader type specification!");
 
 			size_t nextLinePos = source.find_first_not_of("\r\n", eol);
+			EM_CORE_ASSERT(nextLinePos != std::string::npos, "Syntax error");
 			pos = source.find(typeToken, nextLinePos);
-			shaderSources[ShaderTypeFromString(type)] = source.substr(nextLinePos, pos - (nextLinePos == std::string::npos ? source.size() - 1 : nextLinePos));
+
+			shaderSources[ShaderTypeFromString(type)] = (pos == std::string::npos) ? source.substr(nextLinePos) : source.substr(nextLinePos, pos - nextLinePos);
 		}
 
 		return shaderSources;
@@ -172,8 +174,11 @@ namespace Enma
 			// We don't need the program anymore.
 			glDeleteProgram(program);
 			// Don't leak shaders either.
-			for (auto shaderID : glShaderIDs)
-				glDeleteShader(shaderID);
+			for (auto id : glShaderIDs)
+			{
+				glDetachShader(program, id);
+				glDeleteShader(id);
+			}
 
 
 			// Use the infoLog as you see fit.

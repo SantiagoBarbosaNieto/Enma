@@ -18,7 +18,7 @@ namespace Enma
 		glfwMakeContextCurrent(m_WindowHandle);
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 		EM_ASSERT(status, "Failed to initialize Glad!");
-
+ 
 		EM_CORE_INFO("OpenGL context using:");
 		EM_CORE_INFO("  Vendor: {0}", glGetString(GL_VENDOR));
 		EM_CORE_INFO("  Rederer: {0}", glGetString(GL_RENDERER));

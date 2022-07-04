@@ -8,7 +8,7 @@ class ExampleLayer : public Enma::Layer
 {
 public:
 	ExampleLayer()
-		:Layer("Example"), m_CameraController(1280.0f / 720.0f)
+		:Layer("Example"), m_CameraController(1280.0f / 720.0f, true)
 	{
 
 		// Vertex Array

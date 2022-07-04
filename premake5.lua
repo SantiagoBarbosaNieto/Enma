@@ -66,15 +66,13 @@ project "Enma"
 
         defines
         {
-            "EM_PLATFORM_WINDOWS",
-            "EM_BUILD_DLL",
             "GLFW_INCLUDE_NONE",
             "_CRT_SECURE_NO_WARNINGS"
         }
 
 
     filter "configurations:Debug"
-        defines { "EM_DEBUG", "EM_ENABLE_ASSERTS"}
+        defines "EM_DEBUG"
         symbols "on"
 
     filter "configurations:Release"
@@ -118,11 +116,6 @@ project "Sandbox"
 
     filter "system:windows"
         systemversion "latest"
-
-        defines
-        {
-            "EM_PLATFORM_WINDOWS"
-        }
 
 
     filter "configurations:Debug"
