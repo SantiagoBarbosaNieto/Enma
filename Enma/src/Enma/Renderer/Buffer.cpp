@@ -7,7 +7,7 @@
 namespace Enma
 {
 
-	VertexBuffer* VertexBuffer::Create(float* vertices, uint32_t size)
+	Ref<VertexBuffer> VertexBuffer::Create(float* vertices, uint32_t size)
 	{
 		switch (Renderer::GetAPI())
 		{
@@ -15,7 +15,7 @@ namespace Enma
 			EM_CORE_ASSERT(false, "RendererAPI::None is not supported yet!"); 
 			return nullptr;
 		case RendererAPI::API::OpenGL:
-			return new OpenGLVertexBuffer(vertices, size);
+			return CreateRef<OpenGLVertexBuffer>(vertices, size);
 		}
 
 		EM_CORE_ASSERT(false, "Unknown renderer API: option {0}", (int)Renderer::GetAPI());

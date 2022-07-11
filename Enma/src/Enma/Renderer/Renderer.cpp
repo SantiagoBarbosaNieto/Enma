@@ -1,5 +1,6 @@
 #include "empch.h"
 #include "Enma/Renderer/Renderer.h"
+#include "Enma/Renderer/Renderer2D.h"
 
 #include "Platform/OpenGL/OpenGLShader.h"
 namespace Enma
@@ -9,6 +10,7 @@ namespace Enma
 	void Renderer::Init()
 	{
 		RenderCommand::Init();
+		Renderer2D::Init();
 	}
 
 	void Renderer::BeginScene(OrthographicCamera& camera)

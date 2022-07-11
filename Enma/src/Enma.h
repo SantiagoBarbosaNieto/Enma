@@ -18,6 +18,7 @@
 
 // ---- Renderer --------
 #include "Enma/Renderer/Renderer.h"
+#include "Enma/Renderer/Renderer2D.h"
 #include "Enma/Renderer/RenderCommand.h"
 
 #include "Enma/Renderer/Buffer.h"
@@ -26,7 +27,3 @@
 #include "Enma/Renderer/VertexArray.h"
 
 #include "Enma/Renderer/OrthographicCamera.h"
-
-// ---- Entry Point -----
-#include "Enma/Core/EntryPoint.h"
-// ---- Entry Point -----

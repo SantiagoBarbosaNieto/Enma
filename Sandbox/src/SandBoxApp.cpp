@@ -1,5 +1,8 @@
 #include <Enma.h>
+#include <Enma/Core/EntryPoint.h>
+
 #include "imgui/imgui.h"
+#include "Sandbox2D.h"
 #include "Platform/OpenGL/OpenGLShader.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -12,7 +15,7 @@ public:
 	{
 
 		// Vertex Array
-		m_VertexArray.reset(Enma::VertexArray::Create());
+		m_VertexArray = Enma::VertexArray::Create();
 
 
 		float vertices[3 * 7] = {
@@ -24,7 +27,7 @@ public:
 
 		// Vertex Buffer
 		Enma::Ref<Enma::VertexBuffer> vertexBuffer;
-		vertexBuffer.reset(Enma::VertexBuffer::Create(vertices, sizeof(vertices)));
+		vertexBuffer = Enma::VertexBuffer::Create(vertices, sizeof(vertices));
 
 		Enma::BufferLayout layout = {
 			{ Enma::ShaderDataType::Float3, "a_Position" },
@@ -45,7 +48,7 @@ public:
 
 		//Square--------------------------------------------------
 
-		m_SquareVertexArray.reset(Enma::VertexArray::Create());
+		m_SquareVertexArray = Enma::VertexArray::Create();
 
 
 		float verticesSquare[5 * 4] = {
@@ -56,7 +59,7 @@ public:
 		};
 
 		Enma::Ref<Enma::VertexBuffer> squareVertexBuffer;
-		squareVertexBuffer.reset(Enma::VertexBuffer::Create(verticesSquare, sizeof(verticesSquare)));
+		squareVertexBuffer = Enma::VertexBuffer::Create(verticesSquare, sizeof(verticesSquare));
 
 		squareVertexBuffer->SetLayout({
 			{ Enma::ShaderDataType::Float3, "a_Position" },
@@ -229,7 +232,8 @@ class Sandbox : public Enma::Application
 {
 public:
 	Sandbox() {
-		PushLayer(new ExampleLayer());
+		//PushLayer(new ExampleLayer());
+		PushLayer(new Sandbox2D());
 	}
 	~Sandbox() {
 
