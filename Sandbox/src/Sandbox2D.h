@@ -15,10 +15,11 @@ public:
 private:
 	Enma::OrthographicCameraController m_CameraController;
 		
+	//Temp
 	Enma::Ref<Enma::Shader> m_FlatColorShader;
 	Enma::Ref<Enma::Texture2D> m_ZoroTexture;
 	Enma::Ref<Enma::VertexArray> m_SquareVertexArray;
 
-	glm::vec3 m_SquareColor = { 0.2f, 0.3f, 0.8f };
+	glm::vec3 m_SquareColor = { 0.2f, 0.3f, 0.9f };
 
 };

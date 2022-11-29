@@ -11,6 +11,7 @@ Sandbox2D::Sandbox2D()
 
 void Sandbox2D::OnAttach()
 {
+	m_ZoroTexture = Enma::Texture2D::Create("assets/textures/zoro.png");
 }
 
 void Sandbox2D::OnDetach()
@@ -32,6 +33,7 @@ void Sandbox2D::OnUpdate(Enma::Timestep ts)
 
 	Enma::Renderer2D::DrawQuad({ 1.0f, 1.0f }, { 1.2f, 1.2f }, { 0.8f, 0.2f, 0.2f, 1.0f });
 	Enma::Renderer2D::DrawQuad({ -1.5f, -1.0f }, { 0.5f, 1.0f }, { 0.2f, 0.5f, 0.8f, 1.0f });
+	Enma::Renderer2D::DrawQuad({ 0.0f,0.0f, -0.1f }, { 10.0f,10.0f }, m_ZoroTexture);
 
 	Enma::Renderer2D::EndScene();
 }
