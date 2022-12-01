@@ -20,6 +20,14 @@ private:
 	Enma::Ref<Enma::Texture2D> m_ZoroTexture;
 	Enma::Ref<Enma::VertexArray> m_SquareVertexArray;
 
-	glm::vec3 m_SquareColor = { 0.2f, 0.3f, 0.9f };
+	struct ProfileResult
+	{
+		const char* Name;
+		float Time;
+	};
+
+	std::vector<ProfileResult> m_ProfileResults;
+
+	glm::vec4 m_SquareColor = { 0.2f, 0.3f, 0.9f, 1.0f };
 
 };
