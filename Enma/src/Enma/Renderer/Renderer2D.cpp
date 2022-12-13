@@ -34,8 +34,7 @@ namespace Enma
 
 
 		// Vertex Buffer
-		Ref<VertexBuffer> vertexBuffer;
-		vertexBuffer = VertexBuffer::Create(vertices, sizeof(vertices));
+		Ref<VertexBuffer> vertexBuffer = VertexBuffer::Create(vertices, sizeof(vertices));
 
 		BufferLayout layout = {
 			{ ShaderDataType::Float3, "a_Position" },
@@ -48,8 +47,7 @@ namespace Enma
 		// Index Buffer
 		unsigned int indices[6] = { 0, 1, 2, 2, 3, 0 };
 
-		Ref<IndexBuffer> indexBuffer;
-		indexBuffer.reset(IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+		Ref<IndexBuffer> indexBuffer = IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
 		s_Data->QuadVertexArray->SetIndexBuffer(indexBuffer);
 
 		s_Data->WhiteTexture = Texture2D::Create(1, 1);

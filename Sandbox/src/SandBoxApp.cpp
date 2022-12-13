@@ -42,8 +42,7 @@ public:
 		// Index Buffer
 		unsigned int indices[3] = { 0,1,2 };
 
-		Enma::Ref<Enma::IndexBuffer> indexBuffer;
-		indexBuffer.reset(Enma::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+		Enma::Ref<Enma::IndexBuffer> indexBuffer = Enma::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
 		//Square--------------------------------------------------
@@ -69,8 +68,7 @@ public:
 
 		unsigned int indicesSquare[6] = { 0, 1, 2, 2, 3, 0 };
 
-		Enma::Ref<Enma::IndexBuffer> squareIndexBuffer;
-		squareIndexBuffer.reset(Enma::IndexBuffer::Create(indicesSquare, sizeof(indicesSquare) / sizeof(uint32_t)));
+		Enma::Ref<Enma::IndexBuffer> squareIndexBuffer = Enma::IndexBuffer::Create(indicesSquare, sizeof(indicesSquare) / sizeof(uint32_t));
 
 		m_SquareVertexArray->SetIndexBuffer(squareIndexBuffer);
 
