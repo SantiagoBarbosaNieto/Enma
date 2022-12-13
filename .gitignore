@@ -5,6 +5,9 @@ bin-int/
 
 # Enma files
 *.log
+**/EnmaProfile-Runtime.json
+**/EnmaProfile-Shutdown.json
+**/EnmaProfile-Startup.json
 
 # Visual Studio files and folder
 .vs/
