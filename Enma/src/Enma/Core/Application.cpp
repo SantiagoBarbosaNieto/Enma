@@ -1,6 +1,6 @@
 #include "empch.h"
-#include "Enma/Core/Application.h"
 
+#include "Enma/Core/Application.h"
 #include "Enma/Core/Log.h"
 #include "Enma/Renderer/Renderer.h"
 #include "Enma/Core/Input.h"

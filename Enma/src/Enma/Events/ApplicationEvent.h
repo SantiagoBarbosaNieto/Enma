@@ -30,7 +30,6 @@ namespace Enma
 	class WindowCloseEvent : public Event
 	{
 	public:
-		WindowCloseEvent() {}
 
 		std::string ToString() const override
 		{
@@ -46,7 +45,6 @@ namespace Enma
 	class AppTickEvent : public Event
 	{
 	public: 
-		AppTickEvent() {}
 
 		std::string ToString() const override
 		{
@@ -62,7 +60,6 @@ namespace Enma
 	class AppUpdateEvent : public Event
 	{
 	public:
-		AppUpdateEvent() {}
 
 
 		std::string ToString() const override
@@ -78,7 +75,6 @@ namespace Enma
 	class AppRenderEvent : public Event
 	{
 	public:
-		AppRenderEvent() {}
 
 
 		std::string ToString() const override
