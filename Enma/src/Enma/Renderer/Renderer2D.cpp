@@ -21,6 +21,7 @@ namespace Enma
 
 	void Renderer2D::Init()
 	{
+		EM_PROFILE_FUNCTION();
 		s_Data = new Renderer2DStorage();
 		s_Data->QuadVertexArray = VertexArray::Create();
 
@@ -65,17 +66,23 @@ namespace Enma
 
 	void Renderer2D::Shutdown()
 	{
+		EM_PROFILE_FUNCTION();
+
 		delete s_Data;
 	}
 
 	void Renderer2D::BeginScene(OrthographicCamera& camera)
 	{
+		EM_PROFILE_FUNCTION();
+
 		s_Data->TextureShader->Bind();
 		s_Data->TextureShader->SetMat4("u_ProjectionView", camera.GetProjectionViewMatrix());
 	}
 
 	void Renderer2D::EndScene()
 	{
+		EM_PROFILE_FUNCTION();
+
 	}
 
 	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color)
@@ -85,6 +92,8 @@ namespace Enma
 
 	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color)
 	{
+		EM_PROFILE_FUNCTION();
+
 		s_Data->TextureShader->SetFloat4("u_Color", color);
 		
 		s_Data->WhiteTexture->Bind();
@@ -103,6 +112,8 @@ namespace Enma
 
 	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D>& texture)
 	{
+		EM_PROFILE_FUNCTION();
+
 		texture->Bind();
 
 		s_Data->TextureShader->SetFloat4("u_Color",  glm::vec4(1.0f));

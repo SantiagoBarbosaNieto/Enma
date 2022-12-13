@@ -15,8 +15,7 @@ namespace Enma
 
 	void OrthographicCameraController::OnUpdte(Timestep deltaTime)
 	{
-		
-		//EM_CORE_TRACE("Delta time: {0} s ({1} ms)", deltaTime.GetSeconds(), deltaTime.GetMilliseconds());
+		EM_PROFILE_FUNCTION();
 
 		if (Input::IsKeyPressed(Key::Up) || Input::IsKeyPressed(Key::W))
 		{
@@ -60,6 +59,8 @@ namespace Enma
 
 	void OrthographicCameraController::OnEvent(Event& e)
 	{
+		EM_PROFILE_FUNCTION();
+
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<MouseScrolledEvent>(EM_BIND_EVENT_FN(OrthographicCameraController::OnMouseScrolled));
 		dispatcher.Dispatch<WindowResizeEvent>(EM_BIND_EVENT_FN(OrthographicCameraController::OnWindowResized));
@@ -67,6 +68,8 @@ namespace Enma
 
 	bool OrthographicCameraController::OnMouseScrolled(MouseScrolledEvent& e)
 	{
+		EM_PROFILE_FUNCTION();
+
 		m_ZoomLevel -= e.GetYOffset() * 0.6f ;
 		m_ZoomLevel = std::max(m_ZoomLevel, 0.2f);
 		m_Camera.SetProjection(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
@@ -75,6 +78,8 @@ namespace Enma
 
 	bool OrthographicCameraController::OnWindowResized(WindowResizeEvent& e)
 	{
+		EM_PROFILE_FUNCTION();
+
 		m_AspectRatio = (float)e.GetWidth() / (float)e.GetHeight();
 		m_Camera.SetProjection(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
 		return false;

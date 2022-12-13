@@ -9,7 +9,7 @@
 
 namespace Enma
 {
-	static bool s_GLFWInitialized = false;
+	static uint8_t s_GLFWWindowCount = 0;
 
 	static void GLFWErrorCallback(int error, const char* description)
 	{
@@ -23,6 +23,8 @@ namespace Enma
 
 	WindowsWindow::WindowsWindow(const WindowProps& props)
 	{
+		EM_PROFILE_FUNCTION();
+
 		Init(props);
 	}
 
@@ -33,6 +35,8 @@ namespace Enma
 
 	void WindowsWindow::Init(const WindowProps& props)
 	{
+		EM_PROFILE_FUNCTION();
+
 		m_Data.Title = props.Title;
 		m_Data.Width = props.Width;
 		m_Data.Height = props.Height;
@@ -40,7 +44,7 @@ namespace Enma
 		EM_CORE_INFO("Creating window {0} ({1}, {2})", props.Title, props.Width, props.Height);
 
 
-		if (!s_GLFWInitialized)
+		if (s_GLFWWindowCount == 0)
 		{
 			//TODO: glfwTerminate on system shutdown
 			int success = glfwInit();
@@ -48,10 +52,10 @@ namespace Enma
 
 			glfwSetErrorCallback(GLFWErrorCallback);
 
-			s_GLFWInitialized = true;
 		}
 
 		m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
+		++s_GLFWWindowCount;
 
 		m_Context = CreateScope<OpenGLContext>(m_Window);
 		m_Context->Init();
@@ -154,7 +158,14 @@ namespace Enma
 
 	void WindowsWindow::Shutdown()
 	{
+		EM_PROFILE_FUNCTION();
 		glfwDestroyWindow(m_Window);
+		--s_GLFWWindowCount;
+
+		if (s_GLFWWindowCount == 0)
+		{
+			glfwTerminate();
+		}
 	}
 
 	void WindowsWindow::OnUpdate()
@@ -165,6 +176,8 @@ namespace Enma
 
 	void WindowsWindow::SetVSync(bool enabled)
 	{
+		EM_PROFILE_FUNCTION();
+
 		if (enabled)
 			glfwSwapInterval(1);
 		else

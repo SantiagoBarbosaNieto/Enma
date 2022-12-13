@@ -9,6 +9,7 @@ namespace Enma
 
 	void Renderer::Init()
 	{
+		EM_PROFILE_FUNCTION();
 		RenderCommand::Init();
 		Renderer2D::Init();
 	}

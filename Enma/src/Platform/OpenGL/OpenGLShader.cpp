@@ -29,6 +29,8 @@ namespace Enma
 
 	OpenGLShader::OpenGLShader(const std::string& filepath)
 	{
+		EM_PROFILE_FUNCTION();
+
 		std::string source = ReadFile(filepath);
 
 		auto shaderSources = OpenGLShader::Preprocess(source);
@@ -47,6 +49,8 @@ namespace Enma
 	OpenGLShader::OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc)
 		:m_Name(name)
 	{
+		EM_PROFILE_FUNCTION();
+
 		std::unordered_map<GLenum, std::string> sources;
 		sources[GL_VERTEX_SHADER] = vertexSrc;
 		sources[GL_FRAGMENT_SHADER] = fragmentSrc;
@@ -55,12 +59,16 @@ namespace Enma
 
 	OpenGLShader::~OpenGLShader()
 	{
+		EM_PROFILE_FUNCTION();
+
 		glDeleteProgram(m_RendererID);
 	}
 
 
 	std::string OpenGLShader::ReadFile(const std::string& filepath)
 	{
+		EM_PROFILE_FUNCTION();
+
 		std::string result;
 
 		std::ifstream in(filepath, std::ios::in | std::ios::binary);
@@ -83,6 +91,8 @@ namespace Enma
 
 	std::unordered_map<GLenum, std::string> OpenGLShader::Preprocess(std::string& source)
 	{
+		EM_PROFILE_FUNCTION();
+
 		std::unordered_map<GLenum, std::string> shaderSources;
 
 		const char* typeToken = "#type";
@@ -109,6 +119,8 @@ namespace Enma
 
 	void OpenGLShader::Compile(const std::unordered_map < GLenum, std::string> shaderSources)
 	{
+
+		EM_PROFILE_FUNCTION();
 
 		GLuint program = glCreateProgram();
 		EM_CORE_ASSERT(shaderSources.size() <= 10, "Only 10 shaders supported!.. tried to allocate for {0} shaders", shaderSources.size());
@@ -199,31 +211,43 @@ namespace Enma
 
 	void OpenGLShader::Bind() const
 	{
+		EM_PROFILE_FUNCTION();
+
 		glUseProgram(m_RendererID);
 	}
 
 	void OpenGLShader::Unbind() const
 	{
+		EM_PROFILE_FUNCTION();
+
 		glUseProgram(0);
 	}
 
 	void OpenGLShader::SetInt(const std::string name, int value)
 	{
+		EM_PROFILE_FUNCTION();
+
 		UploadUniformInt(name, value);
 	}
 
 	void OpenGLShader::SetFloat3(const std::string name, const glm::vec3& value)
 	{
+		EM_PROFILE_FUNCTION();
+
 		UploadUniformFloat3(name, value);
 	}
 
 	void OpenGLShader::SetFloat4(const std::string name, const glm::vec4& value)
 	{
+		EM_PROFILE_FUNCTION();
+
 		UploadUniformFloat4(name, value);
 	}
 
 	void OpenGLShader::SetMat4(const std::string name, const glm::mat4& value)
 	{
+		EM_PROFILE_FUNCTION();
+
 		UploadUniformMat4(name, value);
 	}
 

@@ -10,11 +10,12 @@ namespace Enma
 	OpenGLContext::OpenGLContext(GLFWwindow* windowHandle)
 		:m_WindowHandle(windowHandle)
 	{
-		EM_ASSERT(windowHandle, "Handle is null")
+		EM_ASSERT(windowHandle, "Handle is null");
 	}
 
 	void OpenGLContext::Init()
 	{
+		EM_PROFILE_FUNCTION();
 		glfwMakeContextCurrent(m_WindowHandle);
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 		EM_ASSERT(status, "Failed to initialize Glad!");
@@ -36,6 +37,7 @@ namespace Enma
 
 	void OpenGLContext::SwapBuffers()
 	{
+		EM_PROFILE_FUNCTION();
 		glfwSwapBuffers(m_WindowHandle);
 	}
 

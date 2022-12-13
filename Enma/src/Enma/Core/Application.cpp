@@ -17,6 +17,7 @@ namespace Enma {
 
 	Application::Application() 
 	{
+		EM_PROFILE_FUNCTION();
 		EM_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
 		m_Window = Scope<Window>(Window::Create());
@@ -34,22 +35,31 @@ namespace Enma {
 
 	Application::~Application()
 	{
+		EM_PROFILE_FUNCTION();
+
 		Renderer::Shutdown();
 	}
+
 	void Application::PushLayer(Layer* layer)
 	{
+		EM_PROFILE_FUNCTION();
+
 		m_LayerStack.PushLayer(layer);
 		layer->OnAttach();
 	}
 
 	void Application::PushOverlay(Layer* overlay)
 	{
+		EM_PROFILE_FUNCTION();
+	 
 		m_LayerStack.PushOverlay(overlay);
 		overlay->OnAttach();
 	}
 
 	void Application::OnEvent(Event& e)
 	{
+		EM_PROFILE_FUNCTION();
+
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(EM_BIND_EVENT_FN(Application::OnWindowClose));
 		dispatcher.Dispatch<WindowResizeEvent>(EM_BIND_EVENT_FN(Application::OnWindowResize));
@@ -66,21 +76,33 @@ namespace Enma {
 
 	void Application::Run() {
 
+		EM_PROFILE_FUNCTION();
+
 		while (m_Running)
 		{
+			EM_PROFILE_SCOPE("RunLoop");
+
 			float time = Platform::GetTime();
 			Timestep ts = time - m_LastFrameTime;
 			m_LastFrameTime = time;
 			
 			if (!m_Minimized)
 			{
-				for (Layer* layer : m_LayerStack)
-					layer->OnUpdate(ts);
+				{
+					EM_PROFILE_SCOPE("LayerStack OnUpdate @ Application::Run()");
+
+					for (Layer* layer : m_LayerStack)
+						layer->OnUpdate(ts);
+				}
+				m_ImGuiLayer->Begin();
+				{
+					EM_PROFILE_SCOPE("LayerStack OnImGuiRender @ Application::Run()");
+
+					for (Layer* layer : m_LayerStack)
+						layer->OnImGuiRender();
+				}
+				m_ImGuiLayer->End();
 			}
-			m_ImGuiLayer->Begin();
-			for (Layer* layer : m_LayerStack)
-				layer->OnImGuiRender();
-			m_ImGuiLayer->End();
 
 			m_Window->OnUpdate();
 		}
@@ -94,6 +116,8 @@ namespace Enma {
 
 	bool Application::OnWindowResize(WindowResizeEvent& e)
 	{
+		EM_PROFILE_FUNCTION();
+
 
 		if (e.GetWidth() == 0 || e.GetHeight() == 0)
 		{

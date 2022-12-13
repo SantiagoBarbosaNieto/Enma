@@ -10,6 +10,8 @@ namespace Enma
 	{
 
 
+		EM_PROFILE_FUNCTION();
+
 		m_InternalFormat = GL_RGBA8;
 		m_DataFormat = GL_RGBA;
 
@@ -25,9 +27,16 @@ namespace Enma
 	OpenGLTexture2D::OpenGLTexture2D(const std::string& path)
 		:m_Path(path)
 	{
+		EM_PROFILE_FUNCTION();
+
 		stbi_set_flip_vertically_on_load(1);
 		int width, height, channels;
-		stbi_uc* data = stbi_load(path.c_str(), &width, &height, &channels, 0);
+		stbi_uc* data = nullptr;
+		{
+			EM_PROFILE_SCOPE("stbi_load @ OpenGLTexture2D::OpenGLTexture2D(const std::string&)");
+
+			data = stbi_load(path.c_str(), &width, &height, &channels, 0);
+		}
 		EM_CORE_ASSERT(data, "Failed to load image!");
 
 		m_Width = width;
@@ -67,12 +76,16 @@ namespace Enma
 
 	OpenGLTexture2D::~OpenGLTexture2D()
 	{
+		EM_PROFILE_FUNCTION();
+
 		glDeleteTextures(1, &m_RendererID);
 	}
 
 	void OpenGLTexture2D::SetData(void* data, uint32_t size)
 	{
-		
+
+		EM_PROFILE_FUNCTION();
+
 #ifdef EM_ENABLE_ASSERTS
 		uint32_t bpp = m_DataFormat == GL_RGBA ? 4 : 3;
 		EM_CORE_ASSERT(size == m_Width * m_Height * bpp, "Data must be entire texture!");
@@ -82,6 +95,8 @@ namespace Enma
 
 	void OpenGLTexture2D::Bind(uint32_t slot) const
 	{
+		EM_PROFILE_FUNCTION();
+
 		glBindTextureUnit(slot, m_RendererID);
 	}
 }
