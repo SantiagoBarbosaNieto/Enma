@@ -1,7 +1,7 @@
 #include "empch.h"
-#include "GraphicsContext.h"
+#include "Enma/Renderer/GraphicsContext.h"
 
-#include "Renderer.h"
+#include "Enma/Renderer/Renderer.h"
 #include "Platform/OpenGL/OpenGLContext.h"
 
 namespace Enma {
