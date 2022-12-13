@@ -13,6 +13,11 @@ namespace Enma
 		Renderer2D::Init();
 	}
 
+	void Renderer::Shutdown()
+	{
+		Renderer2D::Shutdown();
+	}
+
 	void Renderer::BeginScene(OrthographicCamera& camera)
 	{
 		s_SceneData->ProjectionViewMatrix = camera.GetProjectionViewMatrix();
@@ -20,6 +25,7 @@ namespace Enma
 
 	void Renderer::EndScene()
 	{
+		Renderer2D::EndScene();
 	}
 
 	void Renderer::Submit(const Ref<Shader>& shader, const Ref<VertexArray>& vertexArray, const glm::mat4& transform)

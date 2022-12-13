@@ -32,6 +32,10 @@ namespace Enma {
 		
 	}
 
+	Application::~Application()
+	{
+		Renderer::Shutdown();
+	}
 	void Application::PushLayer(Layer* layer)
 	{
 		m_LayerStack.PushLayer(layer);
