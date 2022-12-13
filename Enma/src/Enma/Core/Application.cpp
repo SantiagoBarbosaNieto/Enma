@@ -20,7 +20,7 @@ namespace Enma {
 		EM_PROFILE_FUNCTION();
 		EM_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
-		m_Window = Scope<Window>(Window::Create());
+		m_Window = Window::Create();
 		m_Window->SetEventCallback(EM_BIND_EVENT_FN(Application::OnEvent));
 
 		Renderer::Init();

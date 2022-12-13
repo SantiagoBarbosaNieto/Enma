@@ -1,5 +1,6 @@
 #pragma once
 #include "Enma.h"
+#include "Enma/Core/Core.h"
 
 #ifdef EM_PLATFORM_WINDOWS
 

@@ -23,7 +23,7 @@ namespace Enma
 	}
 
 
-	IndexBuffer* IndexBuffer::Create(uint32_t* indices, uint32_t count)
+	Ref<IndexBuffer> IndexBuffer::Create(uint32_t* indices, uint32_t count)
 	{
 
 		switch (Renderer::GetAPI())
@@ -32,7 +32,7 @@ namespace Enma
 			EM_CORE_ASSERT(false, "RendererAPI::None is not supported yet!");
 			return nullptr;
 		case RendererAPI::API::OpenGL:
-			return new OpenGLIndexBuffer(indices, count);
+			return CreateRef<OpenGLIndexBuffer>(indices, count);
 		}
 
 		EM_CORE_ASSERT(false, "Unknown renderer API: option {0}", (int)Renderer::GetAPI());
