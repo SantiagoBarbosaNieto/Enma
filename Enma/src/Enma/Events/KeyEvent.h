@@ -4,7 +4,7 @@
 
 
 namespace Enma {
-	class ENMA_API KeyEvent : public Event
+	class KeyEvent : public Event
 	{
 	public: 
 		inline int GetKeyCode() const { return m_KeyCode; }
@@ -17,7 +17,7 @@ namespace Enma {
 		int m_KeyCode;
 	};
 
-	class ENMA_API KeyPressedEvent : public KeyEvent
+	class KeyPressedEvent : public KeyEvent
 	{
 	public:
 		KeyPressedEvent(int keycode, int repeatCount)
@@ -37,7 +37,7 @@ namespace Enma {
 		int m_RepeatCount;
 	};
 
-	class ENMA_API KeyReleasedEvent : public KeyEvent
+	class KeyReleasedEvent : public KeyEvent
 	{
 	public: 
 		KeyReleasedEvent(int keycode)
@@ -53,7 +53,7 @@ namespace Enma {
 		EVENT_CLASS_TYPE(KeyReleased)
 	};
 
-	class ENMA_API KeyTypedEvent : public KeyEvent
+	class KeyTypedEvent : public KeyEvent
 	{
 	public:
 		KeyTypedEvent(int keycode)

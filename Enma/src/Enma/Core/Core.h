@@ -43,20 +43,6 @@
 #endif // End of platform detection
 
 
-#ifdef EM_PLATFORM_WINDOWS
-	#if EM_DYNAMIC_LINKING
-		#ifdef EM_BUILD_DLL
-			#define ENMA_API __declspec(dllexport)
-		#else
-			#define ENMA_API __declspec(dllimport)
-		#endif
-	#else
-		#define ENMA_API
-	#endif
-#else
-	#error Enma currently only supports Windows
-#endif
-
 #ifdef EM_DEBUG
 	#define EM_ENABLE_ASSERTS
 #endif

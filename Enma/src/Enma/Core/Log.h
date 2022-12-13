@@ -5,7 +5,7 @@
 #include "spdlog/fmt/ostr.h"
 
 namespace Enma {
-	class ENMA_API Log
+	class Log
 	{
 	public: 
 		

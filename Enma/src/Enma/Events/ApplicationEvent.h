@@ -5,7 +5,7 @@
 
 namespace Enma
 {
-	class ENMA_API WindowResizeEvent : public Event
+	class WindowResizeEvent : public Event
 	{
 	public:
 		WindowResizeEvent(unsigned int width, unsigned int height)
@@ -27,7 +27,7 @@ namespace Enma
 		unsigned int m_Width, m_Height;
 	};
 
-	class ENMA_API WindowCloseEvent : public Event
+	class WindowCloseEvent : public Event
 	{
 	public:
 		WindowCloseEvent() {}
@@ -43,7 +43,7 @@ namespace Enma
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	};
 
-	class ENMA_API AppTickEvent : public Event
+	class AppTickEvent : public Event
 	{
 	public: 
 		AppTickEvent() {}
@@ -59,7 +59,7 @@ namespace Enma
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	};
 
-	class ENMA_API AppUpdateEvent : public Event
+	class AppUpdateEvent : public Event
 	{
 	public:
 		AppUpdateEvent() {}
@@ -75,7 +75,7 @@ namespace Enma
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	};
 
-	class ENMA_API AppRenderEvent : public Event
+	class AppRenderEvent : public Event
 	{
 	public:
 		AppRenderEvent() {}

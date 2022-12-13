@@ -6,7 +6,7 @@
 
 namespace Enma
 {
-	class ENMA_API Layer
+	class Layer
 	{
 	public:
 		Layer(const std::string& name = "Layer");

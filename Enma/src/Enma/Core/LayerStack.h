@@ -6,7 +6,7 @@
 
 namespace Enma
 {
-	class ENMA_API LayerStack
+	class LayerStack
 	{
 	public: 
 		LayerStack();
