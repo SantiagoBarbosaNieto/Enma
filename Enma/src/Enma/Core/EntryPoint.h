@@ -8,15 +8,18 @@ extern Enma::Application* Enma::CreateApplication();
 int main(int argc, char** argv)
 {
 	Enma::Log::Init();
-	EM_CORE_WARN("Initialized log");
-	int a = 5;
-	EM_INFO("Initialized log Var={0}", a);
-	
 
-
+	EM_PROFILE_BEGIN_SESSION("Startup", "EnmaProfile-Startup.json");
 	auto app = Enma::CreateApplication();
+	EM_PROFILE_END_SESSION();
+	
+	EM_PROFILE_BEGIN_SESSION("Runtime", "EnmaProfile-Runtime.json");
 	app->Run();
+	EM_PROFILE_END_SESSION();
+
+	EM_PROFILE_BEGIN_SESSION("Shutdown", "EnmaProfile-Shutdown.json");
 	delete app;
+	EM_PROFILE_END_SESSION();
 }
 
 #else

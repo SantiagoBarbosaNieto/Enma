@@ -14,6 +14,8 @@
 
 #include "Enma/Core/Log.h"
 
+#include "Enma/Debug/Instrumentor.h"
+
 #ifdef EM_PLATFORM_WINDOWS
 	#include <Windows.h>
 #endif
