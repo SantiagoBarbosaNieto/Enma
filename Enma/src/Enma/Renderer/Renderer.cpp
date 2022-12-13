@@ -2,7 +2,6 @@
 #include "Enma/Renderer/Renderer.h"
 #include "Enma/Renderer/Renderer2D.h"
 
-#include "Platform/OpenGL/OpenGLShader.h"
 namespace Enma
 {
 	Scope<Renderer::SceneData> Renderer::s_SceneData = CreateScope<Renderer::SceneData>();
@@ -32,8 +31,8 @@ namespace Enma
 	void Renderer::Submit(const Ref<Shader>& shader, const Ref<VertexArray>& vertexArray, const glm::mat4& transform)
 	{
 		EM_PROFILE_FUNCTION();
-		std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_ProjectionView", s_SceneData->ProjectionViewMatrix);
-		std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_Transform", transform);
+		shader->SetMat4("u_ProjectionView", s_SceneData->ProjectionViewMatrix);
+		shader->SetMat4("u_Transform", transform);
 
 
 
