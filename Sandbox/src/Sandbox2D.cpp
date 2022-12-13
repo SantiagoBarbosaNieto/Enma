@@ -11,32 +11,36 @@ Sandbox2D::Sandbox2D()
 
 void Sandbox2D::OnAttach()
 {
+	EM_PROFILE_FUNCTION();
+
 	m_ZoroTexture = Enma::Texture2D::Create("assets/textures/zoro.png");
 }
 
 void Sandbox2D::OnDetach()
 {
+	EM_PROFILE_FUNCTION();
+
 }
 
 void Sandbox2D::OnUpdate(Enma::Timestep ts)
 {
 	EM_PROFILE_FUNCTION();
 	//Update
+	m_CameraController.OnUpdte(ts);
+
 	{
-		EM_PROFILE_SCOPE("CameraController::OnUpdate");
-		m_CameraController.OnUpdte(ts);
+		EM_PROFILE_SCOPE("RenderDraw");
+		//Render
+		Enma::RenderCommand::SetClearColor({ 0.2f, 0.2f, 0.2f, 1.0f });
+		Enma::RenderCommand::Clear();
+
+
+		Enma::Renderer2D::BeginScene(m_CameraController.GetCamera());
+
+		Enma::Renderer2D::DrawQuad({ 0.0f,0.0f, -0.1f}, { 10.0f,10.0f }, m_ZoroTexture);
+		Enma::Renderer2D::DrawQuad({ 1.0f, 1.0f}, { 0.5f, 1.0f }, m_SquareColor);
+		Enma::Renderer2D::DrawQuad({ 1.0f, 1.0f }, { 1.2f, 1.2f }, { 0.8f, 0.2f, 0.2f, 1.0f });
 	}
-
-	//Render
-	Enma::RenderCommand::SetClearColor({ 0.2f, 0.2f, 0.2f, 1.0f });
-	Enma::RenderCommand::Clear();
-
-
-	Enma::Renderer2D::BeginScene(m_CameraController.GetCamera());
-
-	Enma::Renderer2D::DrawQuad({ 0.0f,0.0f, -0.1f}, { 10.0f,10.0f }, m_ZoroTexture);
-	Enma::Renderer2D::DrawQuad({ 1.0f, 1.0f}, { 0.5f, 1.0f }, m_SquareColor);
-	Enma::Renderer2D::DrawQuad({ 1.0f, 1.0f }, { 1.2f, 1.2f }, { 0.8f, 0.2f, 0.2f, 1.0f });
 
 	Enma::Renderer2D::EndScene();
 }
@@ -44,6 +48,7 @@ void Sandbox2D::OnUpdate(Enma::Timestep ts)
 void Sandbox2D::OnImGuiRender()
 {
 	EM_PROFILE_FUNCTION();
+
 	ImGui::Begin("Settings");
 	ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
 

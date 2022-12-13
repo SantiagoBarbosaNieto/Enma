@@ -31,13 +31,17 @@ namespace Enma
 
 	void Renderer::Submit(const Ref<Shader>& shader, const Ref<VertexArray>& vertexArray, const glm::mat4& transform)
 	{
+		EM_PROFILE_FUNCTION();
 		std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_ProjectionView", s_SceneData->ProjectionViewMatrix);
 		std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_Transform", transform);
 
 
 
 		vertexArray->Bind();
-		RenderCommand::DrawIndexed(vertexArray);
+		{
+			EM_PROFILE_SCOPE("Draw Indexed");
+			RenderCommand::DrawIndexed(vertexArray);
+		}
 	}
 
 
