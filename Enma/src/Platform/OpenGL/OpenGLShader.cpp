@@ -210,8 +210,11 @@ namespace Enma
 		}
 
 		// Always detach shaders after a successful link.
-		for (auto shaderID : glShaderIDs)
+		for (int i = 0; i < shaderSources.size(); i++)
+		{
+			auto shaderID = glShaderIDs[i];
 			glDetachShader(program, shaderID);
+		}
 
 		m_RendererID = program;
 	}
