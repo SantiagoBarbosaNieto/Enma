@@ -124,12 +124,32 @@ namespace Enma
 
 }
 
-#define EM_PROFILE
+#define EM_PROFILE 1 
+// Resolve which function signature macro will be used. Note that this only
+    // is resolved when the (pre)compiler starts, so the syntax highlighting
+    // could mark the wrong one in your editor!
+#if defined(__GNUC__) || (defined(__MWERKS__) && (__MWERKS__ >= 0x3000)) || (defined(__ICC) && (__ICC >= 600)) || defined(__ghs__)
+    #define EM_FUNC_SIG __PRETTY_FUNCTION__
+#elif defined(__DMC__) && (__DMC__ >= 0x810)
+    #define EM_FUNC_SIG __PRETTY_FUNCTION__
+#elif defined(__FUNCSIG__)
+    #define EM_FUNC_SIG __FUNCSIG__
+#elif (defined(__INTEL_COMPILER) && (__INTEL_COMPILER >= 600)) || (defined(__IBMCPP__) && (__IBMCPP__ >= 500))
+    #define EM_FUNC_SIG __FUNCTION__
+#elif defined(__BORLANDC__) && (__BORLANDC__ >= 0x550)
+    #define EM_FUNC_SIG __FUNC__
+#elif defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199901)
+    #define EM_FUNC_SIG __func__
+#elif defined(__cplusplus) && (__cplusplus >= 201103)
+    #define EM_FUNC_SIG __func__
+#else
+    #define EM_FUNC_SIG "EM_FUNC_SIG unknown!"
+#endif
 #ifdef EM_PROFILE
     #define EM_PROFILE_BEGIN_SESSION(name, filepath) ::Enma::Instrumentor::Get().BeginSession(name, filepath)
     #define EM_PROFILE_END_SESSION() ::Enma::Instrumentor::Get().EndSession()
     #define EM_PROFILE_SCOPE(name) ::Enma::InstrumentationTimer timer##__LINE__(name);
-    #define EM_PROFILE_FUNCTION() EM_PROFILE_SCOPE(__FUNCSIG__)
+    #define EM_PROFILE_FUNCTION() EM_PROFILE_SCOPE(EM_FUNC_SIG)
 #else
     #define EM_PROFILE_BEGIN_SESSION(name, filepath)
     #define EM_PROFILE_END_SESSION()
