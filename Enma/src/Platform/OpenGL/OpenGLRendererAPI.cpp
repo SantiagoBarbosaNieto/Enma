@@ -3,9 +3,37 @@
 
 namespace Enma
 {
+	void OpenGLMessageCallback(
+		unsigned source,
+		unsigned type,
+		unsigned id,
+		unsigned severity,
+		int length,
+		const char* message,
+		const void* userParam)
+	{
+		EM_PROFILE_FUNCTION();
+		switch (severity)
+		{
+		case GL_DEBUG_SEVERITY_HIGH:         EM_CORE_FATAL(message); return;
+		case GL_DEBUG_SEVERITY_MEDIUM:       EM_CORE_ERROR(message); return;
+		case GL_DEBUG_SEVERITY_LOW:          EM_CORE_WARN(message); return;
+		case GL_DEBUG_SEVERITY_NOTIFICATION: EM_CORE_TRACE(message); return;
+		}
+
+		EM_CORE_ASSERT(false, "Unknown severity level!");
+	}
 	void OpenGLRendererAPI::Init()
 	{
 		EM_PROFILE_FUNCTION();
+
+	#ifdef EM_DEBUG
+		glEnable(GL_DEBUG_OUTPUT);
+		glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+		glDebugMessageCallback(OpenGLMessageCallback, nullptr);
+
+		glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DEBUG_SEVERITY_NOTIFICATION, 0, NULL, GL_FALSE);
+	#endif
 
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
