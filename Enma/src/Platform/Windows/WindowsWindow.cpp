@@ -3,6 +3,7 @@
 #include "Enma/Events/KeyEvent.h"
 #include "Enma/Events/MouseEvent.h"
 #include "Enma/Events/ApplicationEvent.h"
+#include "Enma/Core/Input.h"
 
 #include "Platform/OpenGL/OpenGLContext.h"
 
@@ -56,7 +57,7 @@ namespace Enma
 		}
 		{
 			EM_PROFILE_SCOPE("glfwCreateWindow");
-
+		
 			m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
 			++s_GLFWWindowCount;
 
@@ -90,23 +91,24 @@ namespace Enma
 		{
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 				
+			KeyCode keycode = static_cast<KeyCode>(key);
 			switch (action)
 			{
 				case GLFW_PRESS:
 				{
-					KeyPressedEvent event(key, 0);
+					KeyPressedEvent event(keycode, 0);
 					data.EventCallback(event);
 					break;
 				}
 				case GLFW_RELEASE:
 				{
-					KeyReleasedEvent event(key);
+					KeyReleasedEvent event(keycode);
 					data.EventCallback(event);
 					break;
 				}
 				case GLFW_REPEAT:
 				{
-					KeyPressedEvent event(key, 1);
+					KeyPressedEvent event(keycode, 1);
 					data.EventCallback(event);
 					break;
 				}
@@ -117,25 +119,25 @@ namespace Enma
 		{
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
-			KeyTypedEvent event(keycode);
+			KeyTypedEvent event(static_cast<KeyCode>(keycode));
 			data.EventCallback(event);
 		});
 
 		glfwSetMouseButtonCallback(m_Window, [](GLFWwindow* window, int button, int action, int mods)
 		{
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-
+			MouseCode mousecode = static_cast<MouseCode>(button);
 			switch (action)
 			{
 			case GLFW_PRESS:
 			{
-				MouseButtonPressedEvent event(button);
+				MouseButtonPressedEvent event(mousecode);
 				data.EventCallback(event);
 				break;
 			}
 			case GLFW_RELEASE:
 			{
-				MouseButtonReleasedEvent event(button);
+				MouseButtonReleasedEvent event(mousecode);
 				data.EventCallback(event);
 				break;
 			}
