@@ -6,6 +6,20 @@
 
 namespace Enma
 {
+	Ref<VertexBuffer> VertexBuffer::Create(uint32_t size)
+	{
+		switch (Renderer::GetAPI())
+		{
+		case RendererAPI::API::None:
+			EM_CORE_ASSERT(false, "RendererAPI::None is not supported yet!");
+			return nullptr;
+		case RendererAPI::API::OpenGL:
+			return CreateRef<OpenGLVertexBuffer>(size);
+		}
+
+		EM_CORE_ASSERT(false, "Unknown renderer API: option {0}", (int)Renderer::GetAPI());
+		return nullptr;
+	}
 
 	Ref<VertexBuffer> VertexBuffer::Create(float* vertices, uint32_t size)
 	{
