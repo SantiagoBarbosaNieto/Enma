@@ -20,7 +20,7 @@ void main()
 {
 	v_Color = a_Color;
 	v_TexCoord =  a_TexCoord;
-	v_TilingFactor =  a_TilingFactorw;
+	v_TilingFactor =  a_TilingFactor;
 	v_TexIndex = a_TexIndex;
 	gl_Position = u_ProjectionView  * vec4(a_Position,1.0);
 				
@@ -36,8 +36,6 @@ in vec2 v_TexCoord;
 in float v_TexIndex;
 in float v_TilingFactor;
 
-uniform vec4 u_Color;
-uniform float u_TilingFactor;
 uniform sampler2D u_Textures[32];
 
 void main()
