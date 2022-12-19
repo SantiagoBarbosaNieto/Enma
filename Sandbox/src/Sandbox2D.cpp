@@ -38,9 +38,9 @@ void Sandbox2D::OnUpdate(Enma::Timestep ts)
 
 		Enma::Renderer2D::BeginScene(m_CameraController.GetCamera());
 
-		Enma::Renderer2D::DrawQuad({ 1.0f, 1.0f}, { 0.5f, 1.0f }, m_SquareColor);
+		Enma::Renderer2D::DrawRotatedQuad({ 1.0f, 1.0f}, { 0.5f, 1.0f }, glm::radians(70.0f), m_SquareColor);
 		Enma::Renderer2D::DrawQuad({ 0.0f, 0.0f }, { 1.2f, 1.2f }, { 0.8f, 0.2f, 0.2f, 1.0f });
-		Enma::Renderer2D::DrawQuad({ -1.0f,-1.0f, -0.1f}, { 3.0f,3.0f }, m_ZoroTexture, 1.0f,glm::vec4({0.9f, 0.2f, 0.2f, 0.5f}));
+		Enma::Renderer2D::DrawRotatedQuad({ -1.0f,-1.0f, -0.1f}, { 3.0f,3.0f }, glm::radians(60.0f), m_ZoroTexture, 1.0f,glm::vec4({0.9f, 0.2f, 0.2f, 0.5f}));
 	}
 
 	Enma::Renderer2D::EndScene();
