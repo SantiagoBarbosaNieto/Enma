@@ -28,6 +28,7 @@ namespace Enma {
 
 		inline static Application& Get() { return *s_Instance; }
 		inline Window& GetWindow() { return *m_Window; }
+		inline float GetLastFrameTime() { return m_LastFrameTime; }
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
 		bool OnWindowResize(WindowResizeEvent& e);

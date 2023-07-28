@@ -28,6 +28,16 @@ private:
 
 	std::vector<ProfileResult> m_ProfileResults;
 
-	glm::vec4 m_SquareColor = { 0.2f, 0.3f, 0.9f, 1.0f };
+	glm::vec4 m_SkyColor = { 0.4f, 0.4f, 0.9f, 1.0f };
+	glm::vec4 m_GroundColor = { 0.64f, 0.4f, 0.4f, 1.0f };
+	glm::vec4 m_ZoroTintColor = { 1.0f, 1.0f, 1.0f, 1.0f };
+	
+	glm::vec3 m_ZoroPosition = { 0.0f,1.3f, 0.1f };
+
+	glm::float32_t m_currentRotation = 0.0f;
+	glm::float32_t m_LastFrameTime = 0.0f;
+	float m_rotationSpeed = 10.0f;
+
+
 
 };

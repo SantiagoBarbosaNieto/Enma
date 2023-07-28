@@ -13,6 +13,8 @@ namespace Enma
 
 		static void BeginScene(OrthographicCamera& camera);
 		static void EndScene();
+		static void StartBatch();
+		static void NextBatch();
 		static void Flush();
 		
 		//Primitives

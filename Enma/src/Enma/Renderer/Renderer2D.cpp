@@ -126,8 +126,7 @@ namespace Enma
 		s_Data.TextureShader->Bind();
 		s_Data.TextureShader->SetMat4("u_ProjectionView", camera.GetProjectionViewMatrix());
 
-		s_Data.QuadIndexCount = 0;
-		s_Data.QuadVertexBufferPtr = s_Data.QuadVertexBufferBase;
+		StartBatch();
 	}
 
 	void Renderer2D::EndScene()
@@ -142,6 +141,14 @@ namespace Enma
 		Flush();
 	}
 
+	void Renderer2D::StartBatch()
+	{
+		s_Data.QuadIndexCount = 0;
+		s_Data.QuadVertexBufferPtr = s_Data.QuadVertexBufferBase;
+
+		s_Data.TextureSlotIndex = 1;
+	}
+
 	void Renderer2D::Flush() 
 	{
 		EM_PROFILE_FUNCTION();
@@ -154,6 +161,12 @@ namespace Enma
 		RenderCommand::DrawIndexed(s_Data.QuadVertexArray, s_Data.QuadIndexCount);
 	}
 
+	void Renderer2D::NextBatch()
+	{
+		Flush();
+		StartBatch();
+	}
+
 	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color)
 	{
 		DrawQuad({ position.x, position.y, 0.0f }, size, color);
@@ -162,6 +175,8 @@ namespace Enma
 	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color)
 	{
 		EM_PROFILE_FUNCTION();
+
+		
 
 		float textureIndex = 0.0f; //White texture
 		float tilingFactor = 1.0f; //No tiling necesary
@@ -202,12 +217,9 @@ namespace Enma
 		s_Data.QuadVertexBufferPtr++;
 
 		s_Data.QuadIndexCount += 6;
-
 		if (s_Data.QuadIndexCount >= s_Data.MaxIndices)
-		{
-			Flush();
-			//TODO reset batch
-		}
+			NextBatch();
+
 	}
 
 	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const Ref<Texture2D>& texture, float tilingFactor, const glm::vec4& tintColor)
@@ -220,6 +232,7 @@ namespace Enma
 		EM_PROFILE_FUNCTION();
 
 		constexpr glm::vec4 color = { 1.0f, 1.0f, 1.0f, 1.0f };
+
 
 		float textureIndex = 0.0f;
 
@@ -277,6 +290,9 @@ namespace Enma
 		s_Data.QuadVertexBufferPtr++;
 
 		s_Data.QuadIndexCount += 6;
+		if (s_Data.QuadIndexCount >= s_Data.MaxIndices)
+			NextBatch();
+
 	}
 
 	void Renderer2D::DrawRotatedQuad(const glm::vec2& position, const glm::vec2& size, float rotation, const glm::vec4& color)
@@ -287,6 +303,7 @@ namespace Enma
 	void Renderer2D::DrawRotatedQuad(const glm::vec3& position, const glm::vec2& size, float rotation, const glm::vec4& color)
 	{
 		EM_PROFILE_FUNCTION();
+
 
 		float textureIndex = 0.0f; //White texture
 		float tilingFactor = 1.0f; //No tiling necesary
@@ -329,6 +346,9 @@ namespace Enma
 
 		s_Data.QuadIndexCount += 6; 
 
+		if (s_Data.QuadIndexCount >= s_Data.MaxIndices)
+			NextBatch();
+
 	}
 
 	void Renderer2D::DrawRotatedQuad(const glm::vec2& position, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture, float tilingFactor, const glm::vec4& tintColor)
@@ -340,7 +360,9 @@ namespace Enma
 	{
 		EM_PROFILE_FUNCTION();
 
+
 		constexpr glm::vec4 color = { 1.0f, 1.0f, 1.0f, 1.0f };
+
 
 		float textureIndex = 0.0f;
 
@@ -398,5 +420,7 @@ namespace Enma
 		s_Data.QuadVertexBufferPtr++;
 
 		s_Data.QuadIndexCount += 6;
+		if (s_Data.QuadIndexCount >= s_Data.MaxIndices)
+			NextBatch();
 	}
 }
