@@ -5,7 +5,7 @@ This is an implementation of a game engine following the [Game Engine](https://w
 Currently there is no release for this application. For the project setup, VisualStudio Community is required and to generate the solution just run the Setup.bat script from the folder Scripts. It should generate the solution ready to run. 
 
 ## What is it really? 
-Enma is currently a simple 2D renderer that supports batch rendering for both quads and textures. It is not much of a game engine, since there are not many tools implemented to facilitate game creation with it. But one could definetly create a game with this 2D renderer as it is, so I'll still call it a game engine.
+Enma is currently a simple 2D renderer that supports batch rendering for both quads and textures. It is not much of a game engine, since there are not many tools implemented to facilitate game creation with it. But one could definitely  create a game with this 2D renderer as it is, so I'll still call it a game engine.
 
 ![Enma_SandboxShowcase_5mb](https://github.com/SantiagoBarbosaNieto/Enma/assets/60375386/fa3c28ac-cc00-4d1e-a9be-cb1dca7428a9)
 
